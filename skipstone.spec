@@ -6,10 +6,10 @@ Summary(pl):	Przegl±darka oparta o Gtk+, korzystaj±ca z engine'u Mozilli (gecko)
 Summary(pt_BR):	Browser que usa o toolkit GTK+ e o engine gecko do Mozilla para renderização.
 Name:		skipstone
 Version:	0.8.3
-Release:	1.cvs05062002
+Release:	0.1
 License:	GPL
 Group:		X11/Applications/Networking
-Source0:	http://www.muhri.net/skipstone/%{name}-%{version}-cvs05062002.tar.gz
+Source0:	http://www.muhri.net/skipstone/%{name}-%{version}.tar.gz
 Source1:	%{name}.desktop
 Patch0:		%{name}-dirs.patch
 Patch1:		%{name}-pld.patch
