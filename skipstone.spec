@@ -10,6 +10,7 @@ Release:	5
 License:	GPL
 Group:		X11/Applications/Networking
 Source0:	http://www.muhri.net/skipstone/%{name}-%{version}.tar.gz
+# Source0-md5:	d44324e3664723c2cbe82ce60464dc51
 Source1:	%{name}.desktop
 Patch0:		%{name}-dirs.patch
 Patch1:		%{name}-pld.patch
