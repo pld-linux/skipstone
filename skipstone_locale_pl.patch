@@ -1,0 +1,93 @@
+--- skipstone-0.7.9/locale/pl.po	Wed Feb  6 08:42:15 2002
++++ ./skipstone-0.7.9-1/locale/pl.po	Tue Feb 26 15:51:31 2002
+@@ -149,11 +149,11 @@
+ 
+ #: ../src/context.c:20
+ msgid "Download Link..."
+-msgstr ""
++msgstr "¦ci±gaj adres..."
+ 
+ #: ../src/context.c:24 ../src/context.c:147
+ msgid "Copy Link location"
+-msgstr ""
++msgstr "Kopiuj adres"
+ 
+ #: ../src/context.c:39 ../src/context.c:107
+ msgid "Open Image in this Window"
+@@ -187,7 +187,7 @@
+ 
+ #: ../src/context.c:80 ../src/interface.c:467 ../src/skipstone-config.c:250
+ msgid "Stop"
+-msgstr ""
++msgstr "Zatrzymaj"
+ 
+ #: ../src/context.c:92 ../src/interface-notebook.c:504 ../src/interface.c:229
+ msgid "View Source"
+@@ -196,7 +196,7 @@
+ #: ../src/context.c:142
+ #
+ msgid "Download Link"
+-msgstr ""
++msgstr "¦ci±gnij adres"
+ 
+ #: ../src/history.c:58
+ msgid "SkipStone - History"
+@@ -271,7 +271,7 @@
+ #: ../src/interface.c:483 ../src/skipstone-config.c:50
+ #: ../src/skipstone-config.c:162 ../src/skipstone-config.c:254
+ msgid "Home"
+-msgstr "Home"
++msgstr "Dom"
+ 
+ #: ../src/interface-notebook.c:556 ../src/interface.c:113
+ msgid "Preferences"
+@@ -351,7 +351,7 @@
+ 
+ #: ../src/interface-notebook.c:457
+ msgid "De-Tab"
+-msgstr ""
++msgstr "Odzak³adkuj"
+ 
+ #: ../src/interface-notebook.c:515
+ msgid "Next tab"
+@@ -367,7 +367,7 @@
+ 
+ #: ../src/interface-notebook.c:610
+ msgid "Notebook tabs"
+-msgstr ""
++msgstr "Umiejscowienie zak³adek"
+ 
+ #: ../src/interface-notebook.c:616
+ msgid "Top"
+@@ -509,7 +509,7 @@
+ 
+ #: ../src/skipstone-config.c:195
+ msgid "Download With: "
+-msgstr ""
++msgstr "¦ci±gaj z:"
+ 
+ #: ../src/skipstone-config.c:211
+ msgid "Respect js size_to?"
+@@ -579,7 +579,7 @@
+ 
+ #: ../src/skipstone-config.c:375
+ msgid "Variable Font Size: "
+-msgstr ""
++msgstr "Rozmiar czcionki zmiennorozmiarowej"
+ 
+ #: ../src/skipstone-config.c:384
+ msgid "Sans Serif Font: "
+@@ -620,11 +620,11 @@
+ 
+ #: ../src/support.c:138
+ msgid "Configure your download program"
+-msgstr "Configure o seu programa de download!"
++msgstr "Skonfiguruj program ¶ci±gaj±cy"
+ 
+ #: ../src/support.c:146
+ msgid "Failed to launch downloader!"
+-msgstr ""
++msgstr "Nieudane uruchomienie programu ¶ci±gaj±cego"
+ 
+ #: ../src/support.c:372
+ msgid "Cannot write config file!"
