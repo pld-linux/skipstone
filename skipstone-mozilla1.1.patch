@@ -1,0 +1,22 @@
+--- skipstone-0.8.3/src/mozilla.cpp.orig	Tue Jun 25 12:35:42 2002
++++ skipstone-0.8.3/src/mozilla.cpp	Sat Oct 19 20:32:50 2002
+@@ -62,6 +62,7 @@
+ #include "nsIContentViewerFile.h"
+ #include "nsIPrintOptions.h"
+ #include "nsIPrintSettings.h"
++#include "nsIPrintSettingsService.h"
+ #include "nsIWebBrowserPrint.h"
+ #include "skipstone-print.h"
+ #include "debug.h"
+@@ -201,9 +202,9 @@
+      D_ENTER;
+      	nsresult result = FALSE;
+ #ifdef NS_WITH_SERVICE
+-     	NS_WITH_SERVICE(nsIPrintOptions, options, kPrintOptionsCID, &result);
++     	NS_WITH_SERVICE(nsIPrintSettingsService, options, kPrintOptionsCID, &result);
+ #else
+-     	nsCOMPtr<nsIPrintOptions> options = do_GetService(kPrintOptionsCID, &result);
++     	nsCOMPtr<nsIPrintSettingsService> options = do_GetService(kPrintOptionsCID, &result);
+ #endif     
+ 	if (NS_FAILED(result)) D_RETURN_ ( NS_ERROR_FAILURE );
+      
