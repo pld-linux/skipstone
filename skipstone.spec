@@ -1,9 +1,4 @@
-#
-# Conditional build:
-%bcond_with	gtk1	# use gtk+ 1.2 instead of 2.x
-#
 %define		minmozver	5:1.7
-%define		gtkv		gtk%{?with_gtk1:1}%{!?with_gtk1:2}
 Summary:	SkipStone is a simple Gtk+ web browser that utilizes Mozilla's gecko engine
 Summary(pl):	Przegl±darka oparta o Gtk+, korzystaj±ca z engine'u Mozilli (gecko)
 Summary(pt_BR):	Browser que usa o toolkit GTK+ e o engine gecko do Mozilla para renderização
@@ -19,25 +14,24 @@ Patch0:		%{name}-dirs.patch
 Patch1:		%{name}-pld.patch
 Patch2:		%{name}_locale_pl.patch
 Patch3:		%{name}-chrome_check.patch
-Patch4:		%{name}-mozilla1.1.patch
-Patch5:		%{name}-mozilla1.2b.patch
-Patch6:		%{name}-mozilla1.4.patch
-Patch7:		%{name}-mozilla1.5.patch
-Patch8:		%{name}-mozilla1.6.patch
-Patch9:		%{name}-gtk2.patch
+Patch4:		%{name}-mozilla1.7.patch
+#Patch4:		%{name}-mozilla1.1.patch
+#Patch5:		%{name}-mozilla1.2b.patch
+#Patch6:		%{name}-mozilla1.4.patch
+#Patch7:		%{name}-mozilla1.5.patch
+#Patch8:		%{name}-mozilla1.6.patch
+#Patch9:		%{name}-gtk2.patch
 Patch10:	%{name}-po-fixes.patch
 URL:		http://www.muhri.net/skipstone/
 BuildRequires:	autoconf
-%{?with_gtk1:BuildRequires:	gdk-pixbuf-devel}
-BuildRequires:	gettext-devel
-%{?with_gtk1:BuildRequires:	gtk+-devel >= 1.2.6}
-%{!?with_gtk1:BuildRequires:	gtk+2-devel >= 2.2.0}
+BuildRequires:	gettext-devel >= 0.11
+BuildRequires:	gtk+2-devel >= 2.2.0
 BuildRequires:	libstdc++-devel
-BuildRequires:	mozilla-embedded(%{gtkv}) >= %{minmozver}
+BuildRequires:	mozilla-embedded(gtk2) >= %{minmozver}
 BuildRequires:	mozilla-embedded-devel >= %{minmozver}
-%{!?with_gtk1:BuildRequires:	pkgconfig}
-Requires:	mozilla-embedded(%{gtkv}) = %(rpm -q --qf '%{EPOCH}:%{VERSION}' --whatprovides mozilla-embedded)
-Provides:	%{name}(%{gtkv}) = %{version}
+BuildRequires:	pkgconfig
+Requires:	mozilla-embedded(gtk2) = %(rpm -q --qf '%{EPOCH}:%{VERSION}' --whatprovides mozilla-embedded)
+Provides:	%{name}(gtk2) = %{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # can be provided by mozilla or mozilla-embedded
@@ -61,7 +55,8 @@ Mozilla para renderização.
 Summary:	Various Skipstone plugins
 Summary(pl):	Ró¿ne wtyczki do Skipstone
 Group:		X11/Applications/Networking
-Requires:	%{name}(%{gtkv}) = %{version}-%{release}
+Requires:	%{name}(gtk2) = %{version}-%{release}
+Obsoletes:	skipstone-plugins-gdkpixbuf
 
 %description plugins
 Various Skipstone plugins.
@@ -69,44 +64,19 @@ Various Skipstone plugins.
 %description plugins -l pl
 Ró¿ne wtyczki do Skipstone.
 
-%package plugins-gdkpixbuf
-Summary:	Skipstone plugins that require gdk-pixbuf library
-Summary(pl):	Wtyczki do Skipstone wymagaj±ce biblioteki gdk-pixbuf
-Group:		X11/Applications/Networking
-Requires:	%{name}(%{gtkv}) = %{version}-%{release}
-
-%description plugins-gdkpixbuf
-Skipstone plugins that require gdk-pixbuf library. Currently only
-FavIcon.
-
-%description plugins-gdkpixbuf -l pl
-Wtyczki do SkipStone wymagaj±ce biblioteki gdk-pixbuf. Na razie tylko
-FavIcon.
-
 %prep
 %setup -q
-%patch0 -p1
+#%patch0 -p1	-- needs update!
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
-%patch5 -p1
-%patch6 -p1
-%patch7 -p1
-%patch8 -p1
-%{!?with_gtk1:%patch9 -p1}
-%patch10 -p1 -b .pofixes
-
-# handle gettext 0.10/0.11 incompatibility
-if ! msgfmt --version | grep -q '0\.1[123]\.' ; then
-	mv -f locale/zh_TW.Big5.po{.pofixes,}
-fi
+%patch10 -p1
 
 mv -f locale/{zh_CN.GB2312,zh_CN}.po
 mv -f locale/{zh_TW.Big5,zh_TW}.po
 
 %build
-%if %{with gtk1}
 # not really needed (gettext can handle ->UTF-8 conversion at runtime)
 # but it's better to do conversion once at build time
 conv() {
@@ -126,33 +96,33 @@ conv pt iso-8859-1
 conv ru koi8-r
 conv zh_CN GBK
 conv zh_TW big5
-%endif
 
 %{__autoconf}
 
-CPPFLAGS="-I/usr/include/nspr -I/usr/include/mozilla/history"
+CPPFLAGS="-I/usr/include/nspr"
+# -I/usr/include/mozilla/history"
 CXXFLAGS="%{rpmcflags} -fno-rtti -fno-exceptions"
 %configure \
+	--enable-cvs-mozilla \
+	--enable-nls \
 	--with-mozilla-includes=/usr/include/mozilla \
-	--with-mozilla-libs=/usr/lib/mozilla \
-	--enable-nls
+	--with-mozilla-libs=/usr/lib/mozilla
 
 %{__make}
 
 cd plugins
 echo all: > Throbber/Makefile # it requires imlib2, let's skip it for a while
-echo all: > NewButtonImlib/Makefile # it requires imlib2, let's skip it for a while
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_bindir},%{_applnkdir}/Network/WWW,%{_pixmapsdir},%{_libdir}/skipstone/plugins}
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_desktopdir},%{_pixmapsdir},%{_libdir}/skipstone/plugins}
 
 %{__make} install \
 	PREFIX=$RPM_BUILD_ROOT%{_prefix} \
 	LOCALEDIR=$RPM_BUILD_ROOT%{_localedir}
 
-install %{SOURCE1} $RPM_BUILD_ROOT%{_applnkdir}/Network/WWW
+install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
 cp -f icons/skipstone-desktop.png $RPM_BUILD_ROOT%{_pixmapsdir}
 
 install plugins/*/*.so $RPM_BUILD_ROOT%{_libdir}/skipstone/plugins
@@ -172,15 +142,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/skipstone
 %dir %{_libdir}/skipstone
 %dir %{_libdir}/skipstone/plugins
-%{_applnkdir}/Network/WWW/*
-%{_pixmapsdir}/*
+%{_desktopdir}/*.desktop
+%{_pixmapsdir}/*.png
 
 %files plugins
 %defattr(644,root,root,755)
 %{_libdir}/skipstone/plugins/LauncherPix
-%attr(755,root,root) %{_libdir}/skipstone/plugins/[AHLSZ]*.so
-%attr(755,root,root) %{_libdir}/skipstone/plugins/NewButton.so
-
-%files plugins-gdkpixbuf
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/skipstone/plugins/FavIcon.so
+%attr(755,root,root) %{_libdir}/skipstone/plugins/*.so
