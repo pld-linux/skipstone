@@ -1,8 +1,7 @@
-
 [Desktop Entry]
 Name=Skipstone
 Comment=SkipStone is a simple Gtk+ web browser that utilizes Mozilla's gecko engine
-Comment[pl]=Przegl±darka oparta o Gtk+, korzystaj±ca z engine'u Mozilli (gecko)
+Comment[pl]=PrzeglÄ…darka oparta o Gtk+, korzystajÄ…ca z silnika Mozilli (gecko)
 Icon=skipstone-desktop.png
 Exec=skipstone
 Terminal=0
