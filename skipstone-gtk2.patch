@@ -153,3 +153,23 @@
       D_RETURN;
  }
  
+--- skipstone-0.8.3/src/main.c.orig	Tue Jun 25 12:35:42 2002
++++ skipstone-0.8.3/src/main.c	Wed Jun 25 17:21:01 2003
+@@ -120,6 +120,7 @@
+ #   else
+         textdomain("skipstone");
+ #   endif   /* PACKAGE */
++    bind_textdomain_codeset(PACKAGE, "UTF-8");
+ #endif  /* ENABLE_NLS */
+ 
+ #if 0
+--- skipstone-0.8.3/src/intl.h.orig	Tue Jun 25 12:35:42 2002
++++ skipstone-0.8.3/src/intl.h	Wed Jun 25 17:15:20 2003
+@@ -28,6 +28,7 @@
+ #   define dgettext(Domain,String) (String)
+ #   define dcgettext(Domain,String,Type) (String)
+ #   define bindtextdomain(Domain,Directory) (Domain) 
++#   define bind_textdomain_codeset(Domain,Charset) (Domain) 
+ #endif  /* ENABLE_NLS */
+ 
+ 
