@@ -1,4 +1,7 @@
-
+#
+# Conditional build:
+# _with_gtk1	- use gtk+ 1.2 instead of 2.x
+#
 %define		minmozver	1.1
 
 Summary:	SkipStone is a simple Gtk+ web browser that utilizes Mozilla's gecko engine
@@ -6,7 +9,7 @@ Summary(pl):	Przegl±darka oparta o Gtk+, korzystaj±ca z engine'u Mozilli (gecko)
 Summary(pt_BR):	Browser que usa o toolkit GTK+ e o engine gecko do Mozilla para renderização
 Name:		skipstone
 Version:	0.8.3
-Release:	5
+Release:	6
 License:	GPL
 Group:		X11/Applications/Networking
 Source0:	http://www.muhri.net/skipstone/%{name}-%{version}.tar.gz
@@ -18,12 +21,15 @@ Patch2:		%{name}_locale_pl.patch
 Patch3:		%{name}-chrome_check.patch
 Patch4:		%{name}-mozilla1.1.patch
 Patch5:		%{name}-mozilla1.2b.patch
-Patch6:		%{name}-po-fixes.patch
+Patch6:		%{name}-mozilla1.4.patch
+Patch7:		%{name}-gtk2.patch
+Patch8:		%{name}-po-fixes.patch
 URL:		http://www.muhri.net/skipstone/
 BuildRequires:	autoconf
 BuildRequires:	gdk-pixbuf-devel
 BuildRequires:	gettext-devel
-BuildRequires:	gtk+-devel >= 1.2.6
+%{?_with_gtk1:BuildRequires:	gtk+-devel >= 1.2.6}
+%{!?_with_gtk1:BuildRequires:	gtk+2-devel >= 2.2.0}
 BuildRequires:	libstdc++-devel
 BuildRequires:	mozilla-embedded-devel >= %{minmozver}
 BuildRequires:	nspr-devel
@@ -82,22 +88,46 @@ FavIcon.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
-%patch6 -p1 -b .pofixes
+%patch6 -p1
+%{!?_with_gtk1:%patch7 -p1}
+%patch8 -p1 -b .pofixes
 
 # handle gettext 0.10/0.11 incompatibility
-if msgfmt --version | grep -v -q '0\.11\.' ; then
+if ! msgfmt --version | grep -q '0\.1[12]\.' ; then
 	mv -f locale/zh_TW.Big5.po{.pofixes,}
 fi
 
+mv -f locale/{zh_CN.GB2312,zh_CN}.po
+mv -f locale/{zh_TW.Big5,zh_TW}.po
+
 %build
+%if 0%{!?_with_gtk1:1}
+conv() {
+iconv -f ${2} -t UTF-8 locale/${1}.po | sed -e "s/\(charset=\)${2}/\1UTF-8/" > ${1}.tmp
+mv -f ${1}.tmp locale/${1}.po
+}
+conv bg CP1251
+conv da ISO-8859-1
+conv de iso-8859-1
+conv es iso-8859-1
+conv fr iso-8859-1
+conv it iso-8859-1
+conv ja EUC-JP
+conv nl iso-8859-15
+conv pl iso-8859-2
+conv pt iso-8859-1
+conv ru koi8-r
+conv zh_CN GBK
+conv zh_TW big5
+%endif
+
 %{__autoconf}
 
 CPPFLAGS="-I/usr/include/nspr -DNEW_H=\<new.h\>"
-export CPPFLAGS
-
+CXXFLAGS="%{rpmcflags} -fno-rtti"
 %configure \
-	--with-mozilla-includes=/usr/X11R6/include/mozilla \
-	--with-mozilla-libs=/usr/X11R6/lib/mozilla \
+	--with-mozilla-includes=/usr/include/mozilla \
+	--with-mozilla-libs=/usr/lib/mozilla \
 	--enable-nls
 
 %{__make}
