@@ -1,15 +1,17 @@
-diff -Nur skipstone-0.7.5.20011028.orig/config.mk skipstone-0.7.5.20011028/config.mk
---- skipstone-0.7.5.20011028.orig/config.mk	Mon Oct 22 15:53:54 2001
-+++ skipstone-0.7.5.20011028/config.mk	Sun Oct 28 00:37:33 2001
-@@ -2,72 +2,30 @@
+diff -Nur skipstone-0.7.8.orig/config.mk skipstone-0.7.8/config.mk
+--- skipstone-0.7.8.orig/config.mk	Fri Dec 28 23:27:52 2001
++++ skipstone-0.7.8/config.mk	Fri Feb  1 19:28:47 2002
+@@ -2,79 +2,33 @@
  PLUGINDIR=$(HOME)/.skipstone/plugins
  
  MOZILLA_INCLUDES = \
 -	-I/usr/include/mozilla \
 -	-I$(PREFIX)/include/mozilla \
--	-I/usr/include/nspr \
++	-I/usr/X11R6/include/mozilla \
+ 	-I/usr/include/nspr \
 -	-I/usr/include/mozilla/dom \
 -	-I/usr/include/mozilla/windowwatcher \
+-	-I/usr/include/mozilla/webbrowserpersist \
 -	-I/usr/include/mozilla/appcomps \
 -	-I/usr/include/mozilla/find \
 -	-I/usr/include/mozilla/txtsvc \
@@ -28,6 +30,7 @@ diff -Nur skipstone-0.7.5.20011028.orig/config.mk skipstone-0.7.5.20011028/confi
 -	-I/usr/include/mozilla/pref \
 -	-I/usr/include/mozilla/gtkembedmoz \
 -	-I/usr/include/mozilla/nspr \
+-	-I/usr/include/mozilla/uconv \
 -	-I/usr/local/include/nspr \
 -	-I/usr/local/include/mozilla/gtkembedmoz \
 -	-I/usr/local/include/mozilla/dom \
@@ -39,6 +42,7 @@ diff -Nur skipstone-0.7.5.20011028.orig/config.mk skipstone-0.7.5.20011028/confi
 -	-I/usr/local/include/mozilla/shistory \
 -	-I/usr/local/include/mozilla/webshell \
 -	-I/usr/local/include/mozilla/gfx \
+-	-I/usr/include/mozilla/webbrowserpersist \
 -	-I/usr/local/include/mozilla/necko \
 -	-I/usr/local/include/mozilla/widget \
 -	-I/usr/local/include/mozilla/content \
@@ -48,6 +52,7 @@ diff -Nur skipstone-0.7.5.20011028.orig/config.mk skipstone-0.7.5.20011028/confi
 -	-I/usr/local/include/mozilla/string \
 -	-I/usr/local/include/mozilla/xpcom \
 -	-I/usr/local/include/mozilla/pref \
+-	-I/usr/local/include/mozilla/uconv \
 -	-I$(PREFIX)/include/mozilla/nspr \
 -	-I$(PREFIX)/include/mozilla/gtkembedmoz \
 -	-I$(PREFIX)/include/mozilla/dom \
@@ -61,6 +66,7 @@ diff -Nur skipstone-0.7.5.20011028.orig/config.mk skipstone-0.7.5.20011028/confi
 -	-I$(PREFIX)/include/mozilla/gfx \
 -	-I$(PREFIX)/include/mozilla/necko \
 -	-I$(PREFIX)/include/mozilla/widget \
+-	-I$(PREFIX)/include/mozilla/webbrowserpersist \
 -	-I$(PREFIX)/include/mozilla/content \
 -	-I$(PREFIX)/include/mozilla/layout \
 -	-I$(PREFIX)/include/mozilla/browser \
@@ -68,35 +74,38 @@ diff -Nur skipstone-0.7.5.20011028.orig/config.mk skipstone-0.7.5.20011028/confi
 -	-I$(PREFIX)/include/mozilla/string \
 -	-I$(PREFIX)/include/mozilla/xpcom \
 -	-I$(PREFIX)/include/mozilla/pref \
-+	-I//usr/X11R6/include/mozilla \
-+	-I//usr/X11R6/include/mozilla/dom \
-+	-I//usr/X11R6/include/mozilla/windowwatcher \
-+	-I//usr/X11R6/include/mozilla/appcomps \
-+	-I//usr/X11R6/include/mozilla/find \
-+	-I//usr/X11R6/include/mozilla/txtsvc \
-+	-I//usr/X11R6/include/mozilla/docshell \
-+	-I//usr/X11R6/include/mozilla/shistory \
-+	-I//usr/X11R6/include/mozilla/webshell \
-+	-I//usr/X11R6/include/mozilla/gfx \
-+	-I//usr/X11R6/include/mozilla/necko \
-+	-I//usr/X11R6/include/mozilla/widget \
-+	-I//usr/X11R6/include/mozilla/content \
-+	-I//usr/X11R6/include/mozilla/layout \
-+	-I//usr/X11R6/include/mozilla/browser \
-+	-I//usr/X11R6/include/mozilla/webbrwsr \
-+	-I//usr/X11R6/include/mozilla/string \
-+	-I//usr/X11R6/include/mozilla/xpcom \
-+	-I//usr/X11R6/include/mozilla/pref \
-+	-I//usr/X11R6/include/mozilla/gtkembedmoz \
-+	-I//usr/X11R6/include/mozilla/nspr
+-	-I$(PREFIX)/include/mozilla/uconv \
++	-I/usr/X11R6/include/mozilla/dom \
++	-I/usr/X11R6/include/mozilla/windowwatcher \
++	-I/usr/X11R6/include/mozilla/webbrowserpersist \
++	-I/usr/X11R6/include/mozilla/appcomps \
++	-I/usr/X11R6/include/mozilla/find \
++	-I/usr/X11R6/include/mozilla/txtsvc \
++	-I/usr/X11R6/include/mozilla/docshell \
++	-I/usr/X11R6/include/mozilla/shistory \
++	-I/usr/X11R6/include/mozilla/webshell \
++	-I/usr/X11R6/include/mozilla/gfx \
++	-I/usr/X11R6/include/mozilla/necko \
++	-I/usr/X11R6/include/mozilla/widget \
++	-I/usr/X11R6/include/mozilla/content \
++	-I/usr/X11R6/include/mozilla/layout \
++	-I/usr/X11R6/include/mozilla/browser \
++	-I/usr/X11R6/include/mozilla/webbrwsr \
++	-I/usr/X11R6/include/mozilla/string \
++	-I/usr/X11R6/include/mozilla/xpcom \
++	-I/usr/X11R6/include/mozilla/pref \
++	-I/usr/X11R6/include/mozilla/gtkembedmoz \
++	-I/usr/X11R6/include/mozilla/nspr \
++	-I/usr/X11R6/include/mozilla/uconv \
  
  MOZILLA_LIBS = \
 -	-L/usr/lib/mozilla \
+-	-L$(PREFIX)/lib/mozilla \
 +	-L/usr/X11R6/lib/mozilla \
- 	-L$(PREFIX)/lib/mozilla \
  	-lgtkembedmoz -lplds4 -lplc4 -lnspr4 -lgtksuperwin -lxpcom
  
-@@ -78,6 +36,6 @@
+ GTK_LIBS = $(shell gtk-config --libs)
+@@ -84,6 +38,6 @@
  CXX = g++
  
  CPPFLAGS = $(GTK_INCLUDES) $(MOZILLA_INCLUDES)

@@ -1,0 +1,11 @@
+--- skipstone-0.7.8/src/support.c.orig	Fri Dec 28 23:27:52 2001
++++ skipstone-0.7.8/src/support.c	Fri Feb  1 20:21:11 2002
+@@ -422,7 +422,7 @@
+ 	}
+ 
+   	/* defaults */   	
+-     	config.home = g_strdup("http://www.muhri.net/skipstone");
++     	config.home = g_strdup("http://www.pld.org.pl/");
+        	config.xsize = 700;
+      	config.ysize = 500;
+        	config.layout = 0;

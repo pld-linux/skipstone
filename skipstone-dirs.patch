@@ -51,10 +51,11 @@ diff -Nur skipstone-0.7.5.20011028.orig/src/skipstone.h skipstone-0.7.5.20011028
  /*  dirs  */
  #define SKIPSTONE_LOCAL_THEME_DIR "/usr/local/share/skipstone/pixmaps"
 -#define SKIPSTONE_SYSTEM_THEME_DIR "/usr/share/skipstone/pixmaps"
-+#define SKIPSTONE_SYSTEM_THEME_DIR "/usr/X11R6/share/skipstone/pixmaps"
- #define SKIPSTONE_LOCAL_PLUGIN_DIR "/usr/local/share/skipstone/plugins"
+-#define SKIPSTONE_LOCAL_PLUGIN_DIR "/usr/local/share/skipstone/plugins"
 -#define SKIPSTONE_SYSTEM_PLUGIN_DIR "/usr/share/skipstone/plugins"
-+#define SKIPSTONE_SYSTEM_PLUGIN_DIR "/usr/X11R6/share/skipstone/plugins"
++#define SKIPSTONE_SYSTEM_THEME_DIR "/usr/X11R6/share/skipstone/pixmaps"
++#define SKIPSTONE_LOCAL_PLUGIN_DIR "/usr/local/lib/skipstone/plugins"
++#define SKIPSTONE_SYSTEM_PLUGIN_DIR "/usr/X11R6/lib/skipstone/plugins"
  /*--------*/
  
  /* bookmarks */

@@ -1,8 +1,11 @@
+
+%define		mozver	0.9.7
+
 Summary:	SkipStone is a simple Gtk+ web browser that utilizes Mozilla's gecko engine
 Summary(pl):	Przegl±darka oparta o Gtk+, korzystaj±ca z engine'u Mozilli (gecko)
 Name:		skipstone
-Version:	0.7.6
-Release:	2
+Version:	0.7.8
+Release:	1
 License:	GPL
 Group:		X11/Applications/Networking
 Group(de):	X11/Applikationen/Netzwerkwesen
@@ -10,11 +13,13 @@ Group(pl):	X11/Aplikacje/Sieciowe
 Source0:	http://www.muhri.net/skipstone/%{name}-%{version}.tar.gz
 Patch0:		%{name}-Makefile.patch
 Patch1:		%{name}-dirs.patch
+Patch2:		%{name}-pld.patch
 URL:		http://www.muhri.net/skipstone/
-Requires:	mozilla-embedded => 0.9.5-1
-BuildRequires:	libstdc++-devel
+BuildRequires:	gdk-pixbuf-devel
 BuildRequires:	gtk+-devel >= 1.2.6
-BuildRequires:	mozilla-embedded-devel >= 0.9.5-1
+BuildRequires:	libstdc++-devel
+BuildRequires:	mozilla-embedded-devel = %{mozver}
+Requires:	mozilla-embedded = %{mozver}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # can be provided by mozilla or mozilla-embedded
@@ -31,30 +36,74 @@ engine.
 SkipStone jest prost± przegl±dark± www opart± na Gtk+, korzystaj±c± z
 engine'u Mozilli - gecko.
 
+%package plugins
+Summary:	Various Skipstone plugins
+Summary(pl):	Ró¿ne wtyczki do Skipstone
+Group:		X11/Applications/Networking
+Group(de):	X11/Applikationen/Netzwerkwesen
+Group(pl):	X11/Aplikacje/Sieciowe
+Requires:	%{name} = %{version}
+
+%description plugins
+Various Skipstone plugins.
+
+%description plugins -l pl
+Ró¿ne wtyczki do Skipstone.
+
+%package plugins-gdkpixbuf
+Summary:	Skipstone plugins that require gdk-pixbuf library
+Summary(pl):	Wtyczki do Skipstone wymagaj±ce biblioteki gdk-pixbuf
+Group:		X11/Applications/Networking
+Group(de):	X11/Applikationen/Netzwerkwesen
+Group(pl):	X11/Aplikacje/Sieciowe
+Requires:	%{name} = %{version}
+
+%description plugins-gdkpixbuf
+Skipstone plugins that require gdk-pixbuf library. Currently only
+FavIcon.
+
+%description plugins-gdkpixbuf -l pl
+Wtyczki do SkipStone wymagaj±ce biblioteki gdk-pixbuf. Na razie tylko
+FavIcon.
+
 %prep
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
-%{__make} OPT="%{rpmcflags} -DSKIPSTONE_SYSTEM_THEME_DIR=\"\\\"%{_datadir}/%{name}/pixmaps\\\"\" -I/usr/include/nspr -I/usr/X11R6/include/mozilla/webbrowserpersist" \
+%{__make} OPT="%{rpmcflags} -DSKIPSTONE_SYSTEM_THEME_DIR=\"\\\"%{_datadir}/%{name}/pixmaps\\\"\"" \
 	cookie_support=1
+
+for d in AutoComplete HistorySideBar Launcher NewButton SearchToolBar Zoomer \
+	FavIcon ; do
+	%{__make} -C plugins/$d \
+		OPT="%{rpmcflags}" \
+		LDFLAGS="%{rpmldflags} -shared"
+done
+
+# these plugins require imlib2:
+#NewButtonImlib Throbber
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_bindir}
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir}/skipstone/plugins}
 
 %{__make} install PREFIX=$RPM_BUILD_ROOT%{_prefix}
 
+install plugins/*/*.so $RPM_BUILD_ROOT%{_libdir}/skipstone/plugins
+cp -rf plugins/Launcher/LauncherPix $RPM_BUILD_ROOT%{_libdir}/skipstone/plugins
+
 gzip -9nf README* AUTHORS ChangeLog
+
+%clean
+rm -rf $RPM_BUILD_ROOT
 
 %post
 umask 022
 rm -f %{_libdir}/mozilla/component.reg
 MOZILLA_FIVE_HOME=%{_libdir}/mozilla regxpcom
-
-%clean
-rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
@@ -63,3 +112,15 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/skipstone
 %attr(755,root,root) %{_bindir}/skipdownload
 %{_datadir}/skipstone
+%dir %{_libdir}/skipstone
+%dir %{_libdir}/skipstone/plugins
+
+%files plugins
+%defattr(644,root,root,755)
+%{_libdir}/skipstone/plugins/LauncherPix
+%attr(755,root,root) %{_libdir}/skipstone/plugins/[AHLSZ]*.so
+%attr(755,root,root) %{_libdir}/skipstone/plugins/NewButton.so
+
+%files plugins-gdkpixbuf
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/skipstone/plugins/FavIcon.so
