@@ -7,11 +7,11 @@ License:	GPL
 Group:		X11/Applications/Networking
 Group(de):	X11/Applikationen/Netzwerkwesen
 Group(pl):	X11/Aplikacje/Sieciowe
-URL:		http://www.muhri.net/skipstone
 Source0:	http://www.muhri.net/skipstone/%{name}-%{version}.tar.gz
 Patch0:		%{name}-Makefile.patch
 Patch1:		%{name}-dirs.patch
-BuildRequires:	gtk+ >= 1.2.6
+URL:		http://www.muhri.net/skipstone/
+BuildRequires:	gtk+-devel >= 1.2.6
 BuildRequires:	mozilla-devel >= 0.9.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -23,8 +23,8 @@ SkipStone is a simple Gtk+ web browser that utilizes Mozilla's gecko
 engine.
 
 %description -l pl
-SkipStone jest prost± przegl±dark± www opart± na Gtk+, korzystaj±c±
-z engine'u Mozilli - gecko.
+SkipStone jest prost± przegl±dark± www opart± na Gtk+, korzystaj±c± z
+engine'u Mozilli - gecko.
 
 %prep
 %setup -q
@@ -37,7 +37,7 @@ z engine'u Mozilli - gecko.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_bindir}
+%{__install} -d $RPM_BUILD_ROOT%{_bindir}
 
 %{__make} install PREFIX=$RPM_BUILD_ROOT%{_prefix}
 
@@ -53,7 +53,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc {README*,AUTHORS,ChangeLog}.gz *.pl
+%doc *.gz *.pl
 %attr(755,root,root) %{_bindir}/skipstone-bin
 %attr(755,root,root) %{_bindir}/skipstone
 %attr(755,root,root) %{_bindir}/skipdownload
