@@ -15,13 +15,8 @@ Patch1:		%{name}-pld.patch
 Patch2:		%{name}_locale_pl.patch
 Patch3:		%{name}-chrome_check.patch
 Patch4:		%{name}-mozilla1.7.patch
-#Patch4:		%{name}-mozilla1.1.patch
-#Patch5:		%{name}-mozilla1.2b.patch
-#Patch6:		%{name}-mozilla1.4.patch
-#Patch7:		%{name}-mozilla1.5.patch
-#Patch8:		%{name}-mozilla1.6.patch
-#Patch9:		%{name}-gtk2.patch
-Patch10:	%{name}-po-fixes.patch
+Patch5:		%{name}-gtk2.patch
+Patch6:		%{name}-po-fixes.patch
 URL:		http://www.muhri.net/skipstone/
 BuildRequires:	autoconf
 BuildRequires:	gettext-devel >= 0.11
@@ -71,7 +66,8 @@ Ró¿ne wtyczki do Skipstone.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
-%patch10 -p1
+%patch5 -p1
+%patch6 -p1
 
 mv -f locale/{zh_CN.GB2312,zh_CN}.po
 mv -f locale/{zh_TW.Big5,zh_TW}.po
