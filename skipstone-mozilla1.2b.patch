@@ -1,0 +1,11 @@
+--- skipstone-0.8.3/src/PromptService.cpp.orig	Tue Jun 25 12:35:42 2002
++++ skipstone-0.8.3/src/PromptService.cpp	Mon Oct 21 15:34:50 2002
+@@ -10,7 +10,7 @@
+ #include "nsIUnicodeDecoder.h"
+ #include "nsIPlatformCharset.h"
+ #include "nsICharsetConverterManager.h"
+-
++#include "nsISupportsObsolete.h"
+ #include "PromptService.h"
+ #include "nsCOMPtr.h"
+ #include "nsIPromptService.h"
