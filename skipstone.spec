@@ -2,14 +2,14 @@
 # Conditional build:
 # _with_gtk1	- use gtk+ 1.2 instead of 2.x
 #
-%define		minmozver	3:1.1
+%define		minmozver	4:1.5a
 %define		gtkv		gtk%{?_with_gtk1:1}%{!?_with_gtk1:2}
 Summary:	SkipStone is a simple Gtk+ web browser that utilizes Mozilla's gecko engine
 Summary(pl):	Przegl±darka oparta o Gtk+, korzystaj±ca z engine'u Mozilli (gecko)
 Summary(pt_BR):	Browser que usa o toolkit GTK+ e o engine gecko do Mozilla para renderização
 Name:		skipstone
 Version:	0.8.3
-Release:	7
+Release:	8
 License:	GPL
 Group:		X11/Applications/Networking
 Source0:	http://www.muhri.net/skipstone/%{name}-%{version}.tar.gz
@@ -22,8 +22,9 @@ Patch3:		%{name}-chrome_check.patch
 Patch4:		%{name}-mozilla1.1.patch
 Patch5:		%{name}-mozilla1.2b.patch
 Patch6:		%{name}-mozilla1.4.patch
-Patch7:		%{name}-gtk2.patch
-Patch8:		%{name}-po-fixes.patch
+Patch7:		%{name}-mozilla1.5.patch
+Patch8:		%{name}-gtk2.patch
+Patch9:		%{name}-po-fixes.patch
 URL:		http://www.muhri.net/skipstone/
 BuildRequires:	autoconf
 %{?_with_gtk1:BuildRequires:	gdk-pixbuf-devel}
@@ -90,8 +91,9 @@ FavIcon.
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
-%{!?_with_gtk1:%patch7 -p1}
-%patch8 -p1 -b .pofixes
+%patch7 -p1
+%{!?_with_gtk1:%patch8 -p1}
+%patch9 -p1 -b .pofixes
 
 # handle gettext 0.10/0.11 incompatibility
 if ! msgfmt --version | grep -q '0\.1[12]\.' ; then
