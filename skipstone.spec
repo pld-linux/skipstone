@@ -38,7 +38,7 @@ engine'u Mozilli - gecko.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%{__install} -d $RPM_BUILD_ROOT%{_bindir}
+install -d $RPM_BUILD_ROOT%{_bindir}
 
 %{__make} install PREFIX=$RPM_BUILD_ROOT%{_prefix}
 
