@@ -1,5 +1,5 @@
 
-%define		minmozver	1.0.rc3
+%define		minmozver	1.0
 
 Summary:	SkipStone is a simple Gtk+ web browser that utilizes Mozilla's gecko engine
 Summary(pl):	Przegl±darka oparta o Gtk+, korzystaj±ca z engine'u Mozilli (gecko)
@@ -15,6 +15,7 @@ Patch0:		%{name}-dirs.patch
 Patch1:		%{name}-pld.patch
 Patch2:		%{name}_locale_pl.patch
 Patch3:		%{name}-chrome_check.patch
+Patch4:		%{name}-plugin.patch
 URL:		http://www.muhri.net/skipstone/
 BuildRequires:	gdk-pixbuf-devel
 BuildRequires:	gtk+-devel >= 1.2.6
@@ -76,6 +77,7 @@ FavIcon.
 %patch1 -p1
 %patch2
 %patch3 -p1
+%patch4 -p1
 
 %build
 %{__autoconf}
