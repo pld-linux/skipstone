@@ -6,7 +6,7 @@ diff -Nur skipstone-0.8.2.orig/src/skipstone.h skipstone-0.8.2/src/skipstone.h
  /*  dirs  */
  #define SKIPSTONE_SYSTEM_THEME_DIR "/usr/share/skipstone/pixmaps"
 -#define SKIPSTONE_SYSTEM_PLUGIN_DIR "/usr/share/skipstone/plugins"
-+#define SKIPSTONE_SYSTEM_PLUGIN_DIR "/usr/X11R6/lib/skipstone/plugins"
++#define SKIPSTONE_SYSTEM_PLUGIN_DIR "/usr/lib/skipstone/plugins"
  /*--------*/
  
  /* bookmarks */
@@ -29,9 +29,9 @@ diff -Nur skipstone-0.8.2.orig/src/skipstone.in skipstone-0.8.2/src/skipstone.in
 -elif [ -f /opt/mozilla/libgtkembedmoz.so ]; then
 -        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/mozilla
 -        export MOZILLA_FIVE_HOME=/opt/mozilla
-+elif [ -f /usr/X11R6/lib/libgtkembedmoz.so ]; then
++elif [ -f /usr/lib/libgtkembedmoz.so ]; then
 +	LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/X11R6/lib
-+	MOZILLA_FIVE_HOME=/usr/X11R6/lib/mozilla
++	MOZILLA_FIVE_HOME=/usr/lib/mozilla
 +	export LD_LIBRARY_PATH MOZILLA_FIVE_HOME
 +elif [ -f /usr/lib/mozilla/libgtkembedmoz.so ]; then
 +	LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/mozilla
@@ -53,4 +53,4 @@ diff -Nur skipstone-0.8.2.orig/src/skipstone.in skipstone-0.8.2/src/skipstone.in
 -else
 -	exec skipstone-bin $@
 -fi
-+exec /usr/X11R6/bin/skipstone-bin $@
++exec /usr/bin/skipstone-bin $@
