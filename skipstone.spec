@@ -16,12 +16,14 @@ Patch1:		%{name}-pld.patch
 Patch2:		%{name}_locale_pl.patch
 Patch3:		%{name}-chrome_check.patch
 URL:		http://www.muhri.net/skipstone/
+BuildRequires:	autoconf
 BuildRequires:	gdk-pixbuf-devel
 BuildRequires:	gettext-devel
 BuildRequires:	gtk+-devel >= 1.2.6
 BuildRequires:	libstdc++-devel
 BuildRequires:	mozilla-embedded-devel >= %{minmozver}
 BuildRequires:	nspr-devel
+Requires(post):	mozilla-embedded
 Requires:	mozilla-embedded = %(rpm -q --qf '%{VERSION}' --whatprovides mozilla-embedded)
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
