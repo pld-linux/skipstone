@@ -22,7 +22,7 @@ Patch7:		%{name}-pic.patch
 URL:		http://www.muhri.net/skipstone/
 BuildRequires:	autoconf
 BuildRequires:	gettext-devel >= 0.11
-BuildRequires:	gtk+2-devel >= 2.2.0
+BuildRequires:	gtk+2-devel >= 2:2.2.0
 BuildRequires:	libstdc++-devel
 BuildRequires:	mozilla-embedded(gtk2) >= %{minmozver}
 BuildRequires:	mozilla-embedded-devel >= %{minmozver}
