@@ -2,7 +2,7 @@ Summary:	SkipStone is a simple Gtk+ web browser that utilizes Mozilla's gecko en
 Summary(pl):	Przegl±darka oparta o Gtk+, korzystaj±ca z engine'u Mozilli (gecko)
 Name:		skipstone
 Version:	0.7.6
-Release:	1
+Release:	2
 License:	GPL
 Group:		X11/Applications/Networking
 Group(de):	X11/Applikationen/Netzwerkwesen
@@ -37,7 +37,7 @@ engine'u Mozilli - gecko.
 %patch1 -p1
 
 %build
-%{__make} OPT="%{rpmcflags} -DSKIPSTONE_SYSTEM_THEME_DIR=\"\\\"%{_datadir}/%{name}/pixmaps\\\"\"" \
+%{__make} OPT="%{rpmcflags} -DSKIPSTONE_SYSTEM_THEME_DIR=\"\\\"%{_datadir}/%{name}/pixmaps\\\"\" -I/usr/include/nspr -I/usr/X11R6/include/mozilla/webbrowserpersist" \
 	cookie_support=1
 
 %install
