@@ -83,7 +83,12 @@ FavIcon.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
-%patch6 -p1
+%patch6 -p1 -b .pofixes
+
+# handle gettext 0.10/0.11 incompatibility
+if msgfmt --version | grep -v -q '0\.11\.' ; then
+	mv -f locale/zh_TW.Big5.po{.pofixes,}
+fi
 
 %build
 %{__autoconf}
