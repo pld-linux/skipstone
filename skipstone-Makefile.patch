@@ -1,24 +1,31 @@
---- skipstone-0.7.3/src/Makefile.orig	Mon Jun 11 20:23:13 2001
-+++ skipstone-0.7.3/src/Makefile	Thu Jun 14 02:11:41 2001
-@@ -1,8 +1,8 @@
- PREFIX=/usr/local
- VERSION = 0.7.3
+diff -Nur skipstone-0.7.4.orig/config.mk skipstone-0.7.4/config.mk
+--- skipstone-0.7.4.orig/config.mk	Fri Jul 13 19:25:24 2001
++++ skipstone-0.7.4/config.mk	Sun Jul 15 20:19:15 2001
+@@ -2,16 +2,11 @@
+ PLUGINDIR=$(HOME)/.skipstone/plugins
  
--MOZILLA_INCLUDES = -I/usr/include/mozilla -I/usr/local/include/mozilla -I/usr/include/nspr -I/usr/local/include/mozilla/nspr -I/usr/include/mozilla/nspr -I/usr/local/include/mozilla/nspr
--MOZILLA_LIBS = -L/usr/lib/mozilla -L/usr/local/lib/mozilla -lgtkembedmoz -lplds4 -lplc4 -lnspr4 -lgtksuperwin -lxpcom
-+MOZILLA_INCLUDES = -I/usr/X11R6/include/mozilla/include -I/usr/X11R6/include/mozilla/nspr -I/usr/X11R6/include/mozilla
-+MOZILLA_LIBS = -L/usr/X11R6/lib/mozilla -lgtkembedmoz -lplds4 -lplc4 -lnspr4 -lgtksuperwin -lxpcom
+ MOZILLA_INCLUDES = \
+-	-I/usr/include/mozilla \
+-	-I/usr/local/include/mozilla \
+-	-I/usr/include/nspr \
+-	-I/usr/local/include/nspr \
+-	-I/usr/include/mozilla/nspr \
+-	-I/usr/local/include/mozilla/nspr
++	-I/usr/X11R6/include/mozilla \
++	-I/usr/X11R6/include/mozilla/nspr
  
- #my stuff
- #MOZILLA_INCLUDES = -I/usr/moz/mozilla/dist/include
-@@ -14,8 +14,8 @@
- SOURCES = main.c go.c callbacks.c moz_callbacks.c support.c ipc.c bookmarks.c interface.c interface-notebook.c history.c crash.c skipstone_config.c context.c skipstone-plugin.c skipstone-print.c mozilla.cpp SkipStonePrompter.cpp PromptService.cpp 
- OBJS = main.o go.o callbacks.o moz_callbacks.o support.o ipc.o bookmarks.o interface.o interface-notebook.o history.o crash.o skipstone-config.o context.o skipstone-plugin.o skipstone-print.o mozilla.o SkipStonePrompter.o PromptService.o 
- DOWNLOADOBJS = skipdownload.o
--FLAGS = -g -O2 -Wall -I.. $(GTK_INCLUDES) $(MOZILLA_INCLUDES) 
--LIBS = -g $(GTK_LIBS) $(MOZILLA_LIBS) -lpthread
-+FLAGS = $(OPT) -Wall -I.. $(GTK_INCLUDES) $(MOZILLA_INCLUDES) 
-+LIBS = $(GTK_LIBS) $(MOZILLA_LIBS) -lpthread
- CC = gcc $(FLAGS) 
- CXX = c++ -fno-rtti $(FLAGS)
- PROG = skipstone
+ MOZILLA_LIBS = \
+-	-L/usr/lib/mozilla \
+-	-L/usr/local/lib/mozilla \
++	-L/usr/X11R6/lib/mozilla \
+ 	-lgtkembedmoz -lplds4 -lplc4 -lnspr4 -lgtksuperwin -lxpcom
+ 
+ GTK_LIBS = $(shell gtk-config --libs)
+@@ -21,6 +16,6 @@
+ CXX = g++
+ 
+ CPPFLAGS = $(GTK_INCLUDES) $(MOZILLA_INCLUDES)
+-CFLAGS = -g -O2 -Wall
++CFLAGS = $(OPT) -Wall
+ CXXFLAGS = $(CFLAGS) -fno-rtti
+ 
