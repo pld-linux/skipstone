@@ -95,6 +95,7 @@ cp -f icons/skipstone-desktop.png $RPM_BUILD_ROOT%{_pixmapsdir}/
 install plugins/*/*.so $RPM_BUILD_ROOT%{_libdir}/skipstone/plugins
 cp -rf plugins/Launcher/LauncherPix $RPM_BUILD_ROOT%{_libdir}/skipstone/plugins
 
+%find_lang %{name}
 
 gzip -9nf README* AUTHORS ChangeLog
 
@@ -106,7 +107,7 @@ umask 022
 rm -f %{_libdir}/mozilla/component.reg
 MOZILLA_FIVE_HOME=%{_libdir}/mozilla regxpcom
 
-%files
+%files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc *.gz *.pl
 %attr(755,root,root) %{_bindir}/skipstone-bin
@@ -117,16 +118,6 @@ MOZILLA_FIVE_HOME=%{_libdir}/mozilla regxpcom
 %dir %{_libdir}/skipstone/plugins
 %dir %{_applnkdir}/Network/WWW/*
 %{_pixmapsdir}/*
-%lang(da) %{_localedir}/da/LC_MESSAGES/*
-%lang(de) %{_localedir}/de/LC_MESSAGES/*
-%lang(es) %{_localedir}/es/LC_MESSAGES/*
-%lang(it) %{_localedir}/it/LC_MESSAGES/*
-%lang(ja) %{_localedir}/ja/LC_MESSAGES/*
-%lang(nl) %{_localedir}/nl/LC_MESSAGES/*
-%lang(pl) %{_localedir}/pl/LC_MESSAGES/*
-%lang(pt) %{_localedir}/pt/LC_MESSAGES/*
-%lang(ru) %{_localedir}/ru/LC_MESSAGES/*
-
 
 %files plugins
 %defattr(644,root,root,755)
