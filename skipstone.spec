@@ -4,7 +4,7 @@ Summary(pl):	Przegl±darka oparta o Gtk+, korzystaj±ca z engine'u Mozilli (gecko)
 Summary(pt_BR):	Browser que usa o toolkit GTK+ e o engine gecko do Mozilla para renderização
 Name:		skipstone
 Version:	0.9.3
-Release:	1
+Release:	2
 License:	GPL
 Group:		X11/Applications/Networking
 Source0:	http://www.muhri.net/skipstone/%{name}-%{version}.tar.gz
@@ -17,6 +17,7 @@ Patch3:		%{name}-chrome_check.patch
 Patch4:		%{name}-mozilla1.7.patch
 Patch5:		%{name}-gtk2.patch
 Patch6:		%{name}-po-fixes.patch
+Patch7:		%{name}-pic.patch
 URL:		http://www.muhri.net/skipstone/
 BuildRequires:	autoconf
 BuildRequires:	gettext-devel >= 0.11
@@ -68,12 +69,16 @@ Ró¿ne wtyczki do Skipstone.
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
+%patch7 -p1
 
 mv -f locale/{zh_CN.GB2312,zh_CN}.po
 mv -f locale/{zh_TW.Big5,zh_TW}.po
 
 %{__perl} -pi -e 's@/usr/share/skipstone/plugins@%{_libdir}/skipstone/plugins@' \
 	src/skipstone.h
+
+# kill precompiled x86 binaries
+rm -f plugins/Up/*.{o,so}
 
 %build
 # not really needed (gettext can handle ->UTF-8 conversion at runtime)
