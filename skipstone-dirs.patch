@@ -1,9 +1,9 @@
-diff -Nur skipstone-0.7.5.20011028.orig/src/skipstone skipstone-0.7.5.20011028/src/skipstone
---- skipstone-0.7.5.20011028.orig/src/skipstone	Fri Oct  5 13:13:08 2001
-+++ skipstone-0.7.5.20011028/src/skipstone	Sun Oct 28 00:40:58 2001
+diff -Nur skipstone-0.7.9.orig/src/skipstone skipstone-0.7.9/src/skipstone
+--- skipstone-0.7.9.orig/src/skipstone	Wed Feb  6 08:42:16 2002
++++ skipstone-0.7.9/src/skipstone	Sat Feb  9 13:44:14 2002
 @@ -1,4 +1,4 @@
--#!/bin/bash
-+#!/bin/sh
+-#!/bin/sh
++#!/bin/bash
  if test -n "$MOZILLA_FIVE_HOME"; then
  	LD_LIBRARY_PATH=$MOZILLA_FIVE_HOME:$LD_LIBRARY_PATH
  	export LD_LIBRARY_PATH
@@ -43,10 +43,10 @@ diff -Nur skipstone-0.7.5.20011028.orig/src/skipstone skipstone-0.7.5.20011028/s
 -	exec skipstone-bin $@
 -fi
 +exec /usr/X11R6/bin/skipstone-bin $@
-diff -Nur skipstone-0.7.5.20011028.orig/src/skipstone.h skipstone-0.7.5.20011028/src/skipstone.h
---- skipstone-0.7.5.20011028.orig/src/skipstone.h	Fri Oct  5 23:29:19 2001
-+++ skipstone-0.7.5.20011028/src/skipstone.h	Sun Oct 28 00:38:48 2001
-@@ -35,9 +35,9 @@
+diff -Nur skipstone-0.7.9.orig/src/skipstone.h skipstone-0.7.9/src/skipstone.h
+--- skipstone-0.7.9.orig/src/skipstone.h	Wed Feb  6 08:42:16 2002
++++ skipstone-0.7.9/src/skipstone.h	Sat Feb  9 13:42:07 2002
+@@ -37,9 +37,9 @@
  
  /*  dirs  */
  #define SKIPSTONE_LOCAL_THEME_DIR "/usr/local/share/skipstone/pixmaps"
