@@ -43,6 +43,11 @@ install -d $RPM_BUILD_ROOT%{_bindir}
 
 gzip -9nf README* AUTHORS ChangeLog
 
+%post
+umask 022
+rm -f %{_libdir}/mozilla/component.reg
+MOZILLA_FIVE_HOME=%{_libdir}/mozilla regxpcom
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
