@@ -13,6 +13,7 @@ Source1:	%{name}.desktop
 Patch0:		%{name}-dirs.patch
 Patch1:		%{name}-pld.patch
 Patch2:		%{name}_locale_pl.patch
+Patch3:		%{name}-chrome_check.patch
 URL:		http://www.muhri.net/skipstone/
 BuildRequires:	gdk-pixbuf-devel
 BuildRequires:	gtk+-devel >= 1.2.6
@@ -68,6 +69,7 @@ FavIcon.
 %patch0 -p1
 %patch1 -p1
 %patch2 
+%patch3 -p1
 
 %build
 autoconf
