@@ -7,6 +7,7 @@ Version:	0.9.3
 Release:	3
 License:	GPL
 Group:		X11/Applications/Networking
+#Source0Download: http://www.muhri.net/skipstone/page.php3?node=download
 Source0:	http://www.muhri.net/skipstone/%{name}-%{version}.tar.gz
 # Source0-md5:	e5f558e474dcaee673edf25877bdba5b
 Source1:	%{name}.desktop
