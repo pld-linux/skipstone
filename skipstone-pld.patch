@@ -5,7 +5,7 @@
  
    	/* defaults */   	
 -     	config.home = g_strdup("http://www.muhri.net/skipstone");
-+     	config.home = g_strdup("http://www.pld.org.pl/");
++     	config.home = g_strdup("http://www.pld-linux.org/");
         	config.xsize = 700;
       	config.ysize = 500;
         	config.layout = 0;

@@ -1,0 +1,21 @@
+diff -Nur skipstone-0.7.4.orig/src/mozilla.cpp skipstone-0.7.4/src/mozilla.cpp
+--- skipstone-0.7.4.orig/src/mozilla.cpp	Fri Jul 13 17:25:24 2001
++++ skipstone-0.7.4/src/mozilla.cpp	Sat Aug  4 01:38:10 2001
+@@ -121,7 +121,7 @@
+      if (NS_FAILED(rv) || !ds) return NS_ERROR_FAILURE;
+      nsCOMPtr<nsIDocShellHistory> dsHistory = do_QueryInterface (ds);
+      if (!dsHistory) return NS_ERROR_FAILURE;
+-     NS_WITH_SERVICE(nsIGlobalHistory, history, NS_GLOBALHISTORY_CONTRACTID, &rv);
++     nsCOMPtr<nsIGlobalHistory> history = do_GetService(NS_GLOBALHISTORY_CONTRACTID, &rv);
+      if (history) dsHistory->SetGlobalHistory(history);
+      return rv;
+ }
+@@ -176,7 +176,7 @@
+ {
+ 
+      	nsresult result = FALSE;
+-	NS_WITH_SERVICE(nsIPrintOptions, options, kPrintOptionsCID, &result);
++	nsCOMPtr<nsIPrintOptions> options = do_GetService(kPrintOptionsCID, &result);
+ 	if (NS_FAILED(result)) return NS_ERROR_FAILURE;
+ 
+ 	if (info->Pages)
