@@ -20,6 +20,7 @@ BuildRequires:	gtk+-devel >= 1.2.6
 BuildRequires:	libstdc++-devel
 BuildRequires:	mozilla-embedded-devel >= %{minmozver}
 BuildRequires:	nspr-devel
+BuildRequires:	gettext-devel
 Requires:	mozilla-embedded = %(rpm -q --qf '%{VERSION}' --whatprovides mozilla-embedded)
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
