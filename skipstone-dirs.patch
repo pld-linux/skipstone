@@ -13,10 +13,7 @@ diff -Nur skipstone-0.8.2.orig/src/skipstone.h skipstone-0.8.2/src/skipstone.h
 diff -Nur skipstone-0.8.2.orig/src/skipstone.in skipstone-0.8.2/src/skipstone.in
 --- skipstone-0.8.2.orig/src/skipstone.in	Sat Apr  6 11:46:44 2002
 +++ skipstone-0.8.2/src/skipstone.in	Fri Apr 12 02:30:37 2002
-@@ -1,20 +1,20 @@
--#!/bin/sh
-+#!/bin/bash
- # allow MOZILLA_FIVE_HOME to override defaults/install path
+@@ -3,18 +3,18 @@
  if test -n "$MOZILLA_FIVE_HOME"; then
  	LD_LIBRARY_PATH=$MOZILLA_FIVE_HOME:$LD_LIBRARY_PATH
  	export LD_LIBRARY_PATH
