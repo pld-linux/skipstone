@@ -1,0 +1,11 @@
+--- skipstone-0.9.3/plugins/FavIcon/FavIconMoz.cpp.orig	2004-06-28 19:28:57.000000000 +0200
++++ skipstone-0.9.3/plugins/FavIcon/FavIconMoz.cpp	2004-06-30 18:09:50.691186024 +0200
+@@ -94,7 +94,7 @@
+ 		   
+ 			
+ 			nsCOMPtr<nsIURI> uri;
+-#ifdef CVS_MOZILLA
++#ifndef CVS_MOZILLA
+ 			uri = doc->GetDocumentURL();
+ #else
+ 		        uri = doc->GetDocumentURI ();
