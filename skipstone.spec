@@ -17,6 +17,7 @@ Patch2:		%{name}_locale_pl.patch
 Patch3:		%{name}-chrome_check.patch
 Patch4:		%{name}-mozilla1.1.patch
 Patch5:		%{name}-mozilla1.2b.patch
+Patch6:		%{name}-po-fixes.patch
 URL:		http://www.muhri.net/skipstone/
 BuildRequires:	autoconf
 BuildRequires:	gdk-pixbuf-devel
@@ -82,6 +83,7 @@ FavIcon.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 
 %build
 %{__autoconf}

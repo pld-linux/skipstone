@@ -1,0 +1,62 @@
+--- skipstone-0.8.3/locale/nl.po.orig	Tue Jun 25 12:35:43 2002
++++ skipstone-0.8.3/locale/nl.po	Tue Oct 22 22:13:38 2002
+@@ -11,7 +11,7 @@
+ "Last-Translator: Francois Duprez <duprez@planet.nl>\n"
+ "Language-Team: Dutch <LL@li.org>\n"
+ "MIME-Version: 1.0\n"
+-"Content-Type: text/plain; charset=iso8859-15\n"
++"Content-Type: text/plain; charset=iso-8859-15\n"
+ "Content-Transfer-Encoding: 8bit\n"
+ 
+ #: ../src/bookmarks.c:167 ../src/interface-notebook.c:759
+--- skipstone-0.8.3/locale/ru.po.orig	Tue Jun 25 12:35:43 2002
++++ skipstone-0.8.3/locale/ru.po	Tue Oct 22 22:17:40 2002
+@@ -616,14 +616,6 @@
+ msgid "Respect java script window sizing?"
+ msgstr "Учитывать размеры окон ява-скриптов"
+ 
+-#: ../src/skipstone-config.c:250
+-msgid "Maximum popup entries: "
+-msgstr ""
+-
+-#: ../src/skipstone-config.c:253
+-msgid "Clear popup items"
+-msgstr ""
+-
+ #: ../src/skipstone-config.c:258
+ msgid "Maximum popup entries: "
+ msgstr "Максимум сообщений: "
+@@ -1441,22 +1433,6 @@
+ msgid "0.5"
+ msgstr ""
+ 
+-#: ../src/skipstone-print.c:29
+-msgid "0.5"
+-msgstr ""
+-
+-#: ../src/skipstone-print.c:30
+-msgid "0.5"
+-msgstr ""
+-
+-#: ../src/skipstone-print.c:31
+-msgid "0.5"
+-msgstr ""
+-
+-#: ../src/skipstone-print.c:32
+-msgid "Ok"
+-msgstr "Ок"
+-
+ #: ../src/skipstone-print.c:34
+ msgid "Print Error!"
+ msgstr "Ошибка печати!"
+--- skipstone-0.8.3/locale/zh_TW.Big5.po.orig	Tue Jun 25 12:35:43 2002
++++ skipstone-0.8.3/locale/zh_TW.Big5.po	Tue Oct 22 22:18:40 2002
+@@ -1585,7 +1585,7 @@
+ 
+ #: ../src/skipstone-config.c:1381
+ msgid "Scots Gaelic (gd)"
+-msgstr "д╛╝ФдУ╩\\╨╦╩y (gd)"
++msgstr "д╛╝ФдУ╩\╨╦╩y (gd)"
+ 
+ #: ../src/skipstone-config.c:1382
+ msgid "Serbian (sr)"
