@@ -1,5 +1,5 @@
 --- locale/pl.po	Sun Apr  1 05:35:10 2001
-+++ locale-pl/pl.po	Fri Mar  1 02:09:22 2002
++++ locale-pl/pl.po	Fri Mar  1 02:22:56 2002
 @@ -5,96 +5,104 @@
  msgid ""
  msgstr ""
@@ -327,10 +327,8 @@
 +msgid ""
 +"It looks like Skipstone is respawning too fast.\n"
 +"Check your moz-embed, it could be faulty.\n"
- msgstr ""
- 
--#: ../src/history.c:58
--msgid "SkipStone - History"
++msgstr ""
++
 +#: ../src/encoding.c:29
 +#, fuzzy
 +msgid "More ..."
@@ -610,8 +608,10 @@
 +
 +#: ../src/encoding.h:73
 +msgid "Visual Hebrew (ISO-8859-8)"
-+msgstr ""
-+
+ msgstr ""
+ 
+-#: ../src/history.c:58
+-msgid "SkipStone - History"
 +#: ../src/encoding.h:74 ../src/encoding.h:76
 +msgid "Western (ISO-8859-1)"
 +msgstr "Zachodni (ISO-8859-1)"
@@ -967,7 +967,7 @@
 -msgstr "Lewo"
 +#: ../src/main.c:134
 +msgid "Recovering from crash\n"
-+msgstr "Odzyskiwanie po awarii"
++msgstr "Odzyskiwanie po awarii\n"
  
 -#: ../src/interface-notebook.c:631
 -msgid "Right"
@@ -1167,7 +1167,7 @@
 +#, fuzzy
 +msgid "Prefixes"
 +msgstr "Ustawienia"
- 
++
 +#: ../src/skipstone-config.c:86 ../src/skipstone-config.c:381
 +msgid "Misc"
 +msgstr "Ró¿ne"
@@ -1184,7 +1184,7 @@
 +#: ../src/skipstone-config.c:90 ../src/skipstone-config.c:709
 +msgid "Appearance"
 +msgstr "Wygl±d"
-+
+ 
 +#: ../src/skipstone-config.c:91 ../src/skipstone-config.c:752
 +msgid "Fonts"
 +msgstr "Czcionki"
@@ -1409,12 +1409,12 @@
 +#: ../src/skipstone-config.c:596
 +msgid "Default KeyWord Search URL"
 +msgstr ""
- 
--#: ../src/skipstone-config.c:294 ../src/skipstone-config.c:298
++
 +#: ../src/skipstone-config.c:619
 +msgid "Direct Connection to the Internet?"
 +msgstr "Bezpo¶rednie po³±czenie z Internetem?"
-+
+ 
+-#: ../src/skipstone-config.c:294 ../src/skipstone-config.c:298
 +#: ../src/skipstone-config.c:625
 +#, fuzzy
 +msgid "HTTP Proxy: "
@@ -1483,8 +1483,7 @@
 +#: ../src/skipstone-config.c:736
 +msgid "Unicode"
 +msgstr ""
- 
--#: ../src/skipstone-config.c:362
++
 +#: ../src/skipstone-config.c:737
 +msgid "User Defined"
 +msgstr "Zdefiniowany"
@@ -1508,7 +1507,8 @@
 +#: ../src/skipstone-config.c:761
 +msgid "Font for: "
 +msgstr "Czcionka dla: "
-+
+ 
+-#: ../src/skipstone-config.c:362
 +#: ../src/skipstone-config.c:791
  msgid "Serif Font: "
  msgstr "Czcionka Serif: "
@@ -1526,13 +1526,13 @@
  msgid "Variable Font Size: "
 -msgstr ""
 +msgstr "Rozmiar czcionki zmiennorozmiarowej"
-+
+ 
+-#: ../src/skipstone-config.c:384
 +#: ../src/skipstone-config.c:811
 +#, fuzzy
 +msgid "Minimum Font Size: "
 +msgstr "Maksymalny rozmiar czcionki: "
- 
--#: ../src/skipstone-config.c:384
++
 +#: ../src/skipstone-config.c:830
  msgid "Sans Serif Font: "
  msgstr "Czcionka Sans Serif: "
@@ -2007,7 +2007,8 @@
 +#, fuzzy
 +msgid "Left: "
 +msgstr "Lewo"
-+
+ 
+-#: ../src/support.c:56
 +#: ../src/skipstone-print.c:265
 +msgid "Print Error!"
 +msgstr "B³±d druku!"
@@ -2015,8 +2016,7 @@
 +#: ../src/skipstone-print.c:265
 +msgid "Print Failed!"
 +msgstr "Drukowanie nieudane!"
- 
--#: ../src/support.c:56
++
 +#: ../src/support.c:82
  msgid "Configure your mailer please!"
  msgstr "Ustaw program pocztowy!"
@@ -2042,13 +2042,13 @@
 +#, c-format
 +msgid "Note: .skipstonerc was moved to %s\n"
 +msgstr "Zauwa¿: .skipstonerc przeniesiono do %s\n"
- 
--#: ../src/support.c:372
++
 +#: ../src/support.c:416
 +#, c-format
 +msgid "Error moving .skipstonerc to %s: %s\n"
 +msgstr "B³±d przenosznia .skipstonerc do %s: %s\n"
-+
+ 
+-#: ../src/support.c:372
 +#: ../src/support.c:729
  msgid "Cannot write config file!"
  msgstr "Nie mo¿na zapisaæ konfiguracji!"
@@ -2074,7 +2074,7 @@
 +#: ../src/support.c:1087
 +#, fuzzy
 +msgid "Could not write plugin config !!\n"
-+msgstr "Nie mo¿na zapisaæ konfiguracji!"
++msgstr "Nie mo¿na zapisaæ konfiguracji!\n"
 +
 +#: ../src/support.c:1119
 +msgid "No bookmarks file to read, creating default\n"
