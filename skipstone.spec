@@ -9,6 +9,7 @@ Release:	2
 License:	GPL
 Group:		X11/Applications/Networking
 Source0:	http://www.muhri.net/skipstone/%{name}-%{version}.tar.gz
+Source1:	%{name}.desktop
 Patch0:		%{name}-Makefile.patch
 Patch1:		%{name}-dirs.patch
 Patch2:		%{name}-pld.patch
@@ -82,9 +83,10 @@ done
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir}/skipstone/plugins}
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_applnkdir}/Network/WWW,%{_libdir}/skipstone/plugins}
 
 %{__make} install PREFIX=$RPM_BUILD_ROOT%{_prefix}
+install %{SOURCE1} $RPM_BUILD_ROOT%{_applnkdir}/Network/WWW
 
 install plugins/*/*.so $RPM_BUILD_ROOT%{_libdir}/skipstone/plugins
 cp -rf plugins/Launcher/LauncherPix $RPM_BUILD_ROOT%{_libdir}/skipstone/plugins
@@ -108,6 +110,7 @@ MOZILLA_FIVE_HOME=%{_libdir}/mozilla regxpcom
 %{_datadir}/skipstone
 %dir %{_libdir}/skipstone
 %dir %{_libdir}/skipstone/plugins
+%dir %{_applnkdir}/Network/WWW/*
 
 %files plugins
 %defattr(644,root,root,755)
