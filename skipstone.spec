@@ -11,6 +11,7 @@ Source0:	http://www.muhri.net/skipstone/%{name}-%{version}.tar.gz
 Patch0:		%{name}-Makefile.patch
 Patch1:		%{name}-dirs.patch
 URL:		http://www.muhri.net/skipstone/
+Requires:	mozilla-embedded => 0.9.5-1
 BuildRequires:	gtk+-devel >= 1.2.6
 BuildRequires:	mozilla-embedded-devel >= 0.9.5-1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
