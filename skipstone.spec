@@ -2,7 +2,7 @@
 # Conditional build:
 %bcond_with	gtk1	# use gtk+ 1.2 instead of 2.x
 #
-%define		minmozver	4:1.5b
+%define		minmozver	5:1.6
 %define		gtkv		gtk%{?with_gtk1:1}%{!?with_gtk1:2}
 Summary:	SkipStone is a simple Gtk+ web browser that utilizes Mozilla's gecko engine
 Summary(pl):	Przegl±darka oparta o Gtk+, korzystaj±ca z engine'u Mozilli (gecko)
