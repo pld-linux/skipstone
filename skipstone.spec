@@ -13,6 +13,7 @@ Source1:	%{name}.desktop
 Patch0:		%{name}-Makefile.patch
 Patch1:		%{name}-dirs.patch
 Patch2:		%{name}-pld.patch
+Patch3:		%{name}_locale_pl.patch
 URL:		http://www.muhri.net/skipstone/
 BuildRequires:	gdk-pixbuf-devel
 BuildRequires:	gtk+-devel >= 1.2.6
@@ -26,6 +27,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
 %define		_mandir		%{_prefix}/man
+%define		_localedir	/usr/share/locale
 
 %description
 SkipStone is a simple Gtk+ web browser that utilizes Mozilla's gecko
@@ -66,10 +68,11 @@ FavIcon.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 %{__make} OPT="%{rpmcflags} -DSKIPSTONE_SYSTEM_THEME_DIR=\"\\\"%{_datadir}/%{name}/pixmaps\\\"\"" \
-	cookie_support=1
+	cookie_support=1 enable_nls=1
 
 for d in AutoComplete HistorySideBar Launcher NewButton SearchToolBar Zoomer \
 	FavIcon ; do
@@ -85,7 +88,7 @@ done
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_applnkdir}/Network/WWW,%{_pixmapsdir},%{_libdir}/skipstone/plugins}
 
-%{__make} install PREFIX=$RPM_BUILD_ROOT%{_prefix}
+%{__make} install PREFIX=$RPM_BUILD_ROOT%{_prefix} enable_nls=1 LOCALEDIR=$RPM_BUILD_ROOT%{_localedir}
 install %{SOURCE1} $RPM_BUILD_ROOT%{_applnkdir}/Network/WWW
 cp -f icons/skipstone-desktop.png $RPM_BUILD_ROOT%{_pixmapsdir}/
 
@@ -114,6 +117,16 @@ MOZILLA_FIVE_HOME=%{_libdir}/mozilla regxpcom
 %dir %{_libdir}/skipstone/plugins
 %dir %{_applnkdir}/Network/WWW/*
 %{_pixmapsdir}/*
+%lang(da) %{_localedir}/da/LC_MESSAGES/*
+%lang(de) %{_localedir}/de/LC_MESSAGES/*
+%lang(es) %{_localedir}/es/LC_MESSAGES/*
+%lang(it) %{_localedir}/it/LC_MESSAGES/*
+%lang(ja) %{_localedir}/ja/LC_MESSAGES/*
+%lang(nl) %{_localedir}/nl/LC_MESSAGES/*
+%lang(pl) %{_localedir}/pl/LC_MESSAGES/*
+%lang(pt) %{_localedir}/pt/LC_MESSAGES/*
+%lang(ru) %{_localedir}/ru/LC_MESSAGES/*
+
 
 %files plugins
 %defattr(644,root,root,755)
