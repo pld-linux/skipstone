@@ -10,14 +10,20 @@ diff -Nur skipstone-0.8.2.orig/src/skipstone.h skipstone-0.8.2/src/skipstone.h
  /*--------*/
  
  /* bookmarks */
-diff -Nur skipstone-0.8.2.orig/src/skipstone.in skipstone-0.8.2/src/skipstone.in
---- skipstone-0.8.2.orig/src/skipstone.in	Sat Apr  6 11:46:44 2002
-+++ skipstone-0.8.2/src/skipstone.in	Fri Apr 12 02:30:37 2002
-@@ -3,18 +3,18 @@
+--- skipstone-0.8.3/src/skipstone.in.orig	2002-06-25 12:35:42.000000000 +0200
++++ skipstone-0.8.3/src/skipstone.in	2003-06-25 20:56:49.000000000 +0200
+@@ -1,29 +1,18 @@
+ #!/bin/sh
+ # allow MOZILLA_FIVE_HOME to override defaults/install path
  if test -n "$MOZILLA_FIVE_HOME"; then
- 	LD_LIBRARY_PATH=$MOZILLA_FIVE_HOME:$LD_LIBRARY_PATH
- 	export LD_LIBRARY_PATH
--elif [ -f /usr/lib/libgtkembedmoz.so ]; then
+-	LD_LIBRARY_PATH=$MOZILLA_FIVE_HOME:$LD_LIBRARY_PATH
+-	export LD_LIBRARY_PATH
++	if test -n "$LD_LIBRARY_PATH"; then
++		LD_LIBRARY_PATH=$MOZILLA_FIVE_HOME:$LD_LIBRARY_PATH
++	else
++		LD_LIBRARY_PATH=$MOZILLA_FIVE_HOME
++	fi
+ elif [ -f /usr/lib/libgtkembedmoz.so ]; then
 -	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/mozilla
 -	export MOZILLA_FIVE_HOME=/usr/lib/mozilla
 -elif  [ -f @MOZILLA_LIB_HOME@/libgtkembedmoz.so ]; then
@@ -29,24 +35,14 @@ diff -Nur skipstone-0.8.2.orig/src/skipstone.in skipstone-0.8.2/src/skipstone.in
 -elif [ -f /opt/mozilla/libgtkembedmoz.so ]; then
 -        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/mozilla
 -        export MOZILLA_FIVE_HOME=/opt/mozilla
-+elif [ -f /usr/lib/libgtkembedmoz.so ]; then
-+	LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/X11R6/lib
+-
 +	MOZILLA_FIVE_HOME=/usr/lib/mozilla
-+	export LD_LIBRARY_PATH MOZILLA_FIVE_HOME
-+elif [ -f /usr/lib/mozilla/libgtkembedmoz.so ]; then
-+	LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/mozilla
-+	MOZILLA_FIVE_HOME=/usr/lib/mozilla
-+	export LD_LIBRARY_PATH MOZILLA_FIVE_HOME
-+elif [ -f /usr/X11R6/lib/mozilla/libgtkembedmoz.so ]; then
-+	LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/X11R6/lib/mozilla
-+	MOZILLA_FIVE_HOME=/usr/X11R6/lib/mozilla
-+	export LD_LIBRARY_PATH MOZILLA_FIVE_HOME
- 
  else 
  
-@@ -22,8 +22,4 @@
+ echo "Please set your MOZILLA_FIVE_HOME and LD_LIBRARY_PATH manually as I could not find them"
       exit
  fi
++export LD_LIBRARY_PATH MOZILLA_FIVE_HOME
  
 -if [ -f ./skipstone-bin ]; then
 -	exec ./skipstone-bin $@

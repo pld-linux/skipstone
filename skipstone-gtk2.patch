@@ -173,3 +173,36 @@
  #endif  /* ENABLE_NLS */
  
  
+--- skipstone-0.8.3/plugins/FavIcon/Makefile.in.orig	2002-06-25 12:35:43.000000000 +0200
++++ skipstone-0.8.3/plugins/FavIcon/Makefile.in	2003-06-25 21:05:44.000000000 +0200
+@@ -6,8 +6,8 @@
+ CFLAGS += -fPIC
+ LIBS = $(GTK_LIBS) 
+ LDFLAGS = -shared
+-CFLAGS += $(shell gdk-pixbuf-config --cflags)
+-LIBS += $(shell gdk-pixbuf-config --libs)
++CFLAGS += $(shell pkg-config gdk-pixbuf-2.0 --cflags)
++LIBS += $(shell pkg-config gdk-pixbuf-2.0 --libs)
+ OBJS = FavIcon.o FavIconMoz.o
+ 
+ $(PLUGIN).so: $(OBJS)
+--- skipstone-0.8.3/plugins/FavIcon/FavIcon.c.orig	2002-06-25 12:35:43.000000000 +0200
++++ skipstone-0.8.3/plugins/FavIcon/FavIcon.c	2003-06-25 21:12:50.000000000 +0200
+@@ -229,7 +229,7 @@
+    GdkPixmap *gdkpixmap=NULL;
+    GdkBitmap *mask=NULL;
+   
+-   pixbuf = gdk_pixbuf_new_from_file(path);
++   pixbuf = gdk_pixbuf_new_from_file(path, NULL);
+    if (!pixbuf) return NULL;
+    
+    if (gdk_pixbuf_get_width(pixbuf) > 16 || gdk_pixbuf_get_height(pixbuf) > 16) 
+@@ -393,7 +393,7 @@
+ 	skipstone_error_dialog("Error", "Please choose a file, not a directory", TRUE);
+ 	return;
+      }
+-   test = gdk_pixbuf_new_from_file(fname);
++   test = gdk_pixbuf_new_from_file(fname, NULL);
+    if (!test) 
+      {
+ 	skipstone_error_dialog("Error", "File chosen is not an image file or corrupted", TRUE);

@@ -2,14 +2,14 @@
 # Conditional build:
 # _with_gtk1	- use gtk+ 1.2 instead of 2.x
 #
-%define		minmozver	1.1
-
+%define		minmozver	3:1.1
+%define		gtkv		gtk%{?_with_gtk1:1}%{!?_with_gtk1:2}
 Summary:	SkipStone is a simple Gtk+ web browser that utilizes Mozilla's gecko engine
 Summary(pl):	Przegl±darka oparta o Gtk+, korzystaj±ca z engine'u Mozilli (gecko)
 Summary(pt_BR):	Browser que usa o toolkit GTK+ e o engine gecko do Mozilla para renderização
 Name:		skipstone
 Version:	0.8.3
-Release:	6
+Release:	7
 License:	GPL
 Group:		X11/Applications/Networking
 Source0:	http://www.muhri.net/skipstone/%{name}-%{version}.tar.gz
@@ -26,15 +26,16 @@ Patch7:		%{name}-gtk2.patch
 Patch8:		%{name}-po-fixes.patch
 URL:		http://www.muhri.net/skipstone/
 BuildRequires:	autoconf
-BuildRequires:	gdk-pixbuf-devel
+%{?_with_gtk1:BuildRequires:	gdk-pixbuf-devel}
 BuildRequires:	gettext-devel
 %{?_with_gtk1:BuildRequires:	gtk+-devel >= 1.2.6}
 %{!?_with_gtk1:BuildRequires:	gtk+2-devel >= 2.2.0}
 BuildRequires:	libstdc++-devel
+BuildRequires:	mozilla-embedded(%{gtkv}) >= %{minmozver}
 BuildRequires:	mozilla-embedded-devel >= %{minmozver}
-BuildRequires:	nspr-devel
-Requires(post):	mozilla-embedded
-Requires:	mozilla-embedded = %(rpm -q --qf '%{VERSION}' --whatprovides mozilla-embedded)
+%{!?_with_gtk1:BuildRequires:	pkgconfig}
+Requires:	mozilla-embedded(%{gtkv}) = %(rpm -q --qf '%{EPOCH}:%{VERSION}' --whatprovides mozilla-embedded)
+Provides:	%{name}(%{gtkv}) = %{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # can be provided by mozilla or mozilla-embedded
@@ -58,7 +59,7 @@ Mozilla para renderização.
 Summary:	Various Skipstone plugins
 Summary(pl):	Ró¿ne wtyczki do Skipstone
 Group:		X11/Applications/Networking
-Requires:	%{name} = %{version}
+Requires:	%{name}(%{gtkv}) = %{version}
 
 %description plugins
 Various Skipstone plugins.
@@ -70,7 +71,7 @@ Ró¿ne wtyczki do Skipstone.
 Summary:	Skipstone plugins that require gdk-pixbuf library
 Summary(pl):	Wtyczki do Skipstone wymagaj±ce biblioteki gdk-pixbuf
 Group:		X11/Applications/Networking
-Requires:	%{name} = %{version}
+Requires:	%{name}(%{gtkv}) = %{version}
 
 %description plugins-gdkpixbuf
 Skipstone plugins that require gdk-pixbuf library. Currently only
@@ -142,11 +143,11 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_applnkdir}/Network/WWW,%{_pixmapsdir},%{_libdir}/skipstone/plugins}
 
 %{__make} install \
-    PREFIX=$RPM_BUILD_ROOT%{_prefix} \
-    LOCALEDIR=$RPM_BUILD_ROOT%{_localedir}
+	PREFIX=$RPM_BUILD_ROOT%{_prefix} \
+	LOCALEDIR=$RPM_BUILD_ROOT%{_localedir}
 
 install %{SOURCE1} $RPM_BUILD_ROOT%{_applnkdir}/Network/WWW
-cp -f icons/skipstone-desktop.png $RPM_BUILD_ROOT%{_pixmapsdir}/
+cp -f icons/skipstone-desktop.png $RPM_BUILD_ROOT%{_pixmapsdir}
 
 install plugins/*/*.so $RPM_BUILD_ROOT%{_libdir}/skipstone/plugins
 cp -rf plugins/Launcher/LauncherPix $RPM_BUILD_ROOT%{_libdir}/skipstone/plugins
@@ -155,11 +156,6 @@ cp -rf plugins/Launcher/LauncherPix $RPM_BUILD_ROOT%{_libdir}/skipstone/plugins
 
 %clean
 rm -rf $RPM_BUILD_ROOT
-
-%post
-umask 022
-rm -f %{_libdir}/mozilla/components/{compreg,xpti}.dat
-MOZILLA_FIVE_HOME=%{_libdir}/mozilla regxpcom
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
@@ -170,7 +166,7 @@ MOZILLA_FIVE_HOME=%{_libdir}/mozilla regxpcom
 %{_datadir}/skipstone
 %dir %{_libdir}/skipstone
 %dir %{_libdir}/skipstone/plugins
-%dir %{_applnkdir}/Network/WWW/*
+%{_applnkdir}/Network/WWW/*
 %{_pixmapsdir}/*
 
 %files plugins
