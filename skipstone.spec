@@ -78,7 +78,7 @@ FavIcon.
 %patch3 -p1
 
 %build
-autoconf
+%{__autoconf}
 
 CPPFLAGS="-I/usr/include/nspr"
 export CPPFLAGS
