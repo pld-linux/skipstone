@@ -1,29 +1,24 @@
 
-#
-# todo:
-# 1. review file list
-#
-
 %define		minmozver	0.9.9
 
 Summary:	SkipStone is a simple Gtk+ web browser that utilizes Mozilla's gecko engine
 Summary(pl):	Przegl±darka oparta o Gtk+, korzystaj±ca z engine'u Mozilli (gecko)
 Name:		skipstone
-Version:	0.8.1
-Release:	0.2
+Version:	0.8.2
+Release:	1.cvs12042002
 License:	GPL
 Group:		X11/Applications/Networking
-Source0:	http://www.muhri.net/skipstone/%{name}-%{version}.tar.gz
+Source0:	http://www.muhri.net/skipstone/%{name}-%{version}-cvs12042002.tar.gz
 Source1:	%{name}.desktop
-Patch0:		%{name}-Makefile.patch
-Patch1:		%{name}-dirs.patch
-Patch2:		%{name}-pld.patch
-Patch3:		%{name}_locale_pl.patch
+Patch0:		%{name}-dirs.patch
+Patch1:		%{name}-pld.patch
+Patch2:		%{name}_locale_pl.patch
 URL:		http://www.muhri.net/skipstone/
 BuildRequires:	gdk-pixbuf-devel
 BuildRequires:	gtk+-devel >= 1.2.6
 BuildRequires:	libstdc++-devel
 BuildRequires:	mozilla-embedded-devel >= %{minmozver}
+BuildRequires:	nspr-devel
 Requires:	mozilla-embedded = %(rpm -q --qf '%{VERSION}' --whatprovides mozilla-embedded)
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -72,28 +67,34 @@ FavIcon.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
-%patch3 
+%patch2 
 
 %build
-%{__make} OPT="%{rpmcflags} -DSKIPSTONE_SYSTEM_THEME_DIR=\"\\\"%{_datadir}/%{name}/pixmaps\\\"\"" \
-	cookie_support=1 enable_nls=1
+autoconf
 
-for d in AutoComplete HistorySideBar Launcher NewButton SearchToolBar Zoomer \
-	FavIcon ; do
-	%{__make} -C plugins/$d \
-		OPT="%{rpmcflags}" \
-		LDFLAGS="%{rpmldflags} -shared"
-done
+CPPFLAGS="-I/usr/include/nspr"
+export CPPFLAGS
 
-# these plugins require imlib2:
-#NewButtonImlib Throbber
+%configure \
+	--with-mozilla-includes=/usr/X11R6/include/mozilla \
+	--with-mozilla-libs=/usr/X11R6/lib/mozilla \
+    --enable-nls
+
+%{__make}
+
+cd plugins
+echo all: > Throbber/Makefile # it requires imlib2, let's skip it for a while
+echo all: > NewButtonImlib/Makefile # it requires imlib2, let's skip it for a while
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_applnkdir}/Network/WWW,%{_pixmapsdir},%{_libdir}/skipstone/plugins}
 
-%{__make} install PREFIX=$RPM_BUILD_ROOT%{_prefix} enable_nls=1 LOCALEDIR=$RPM_BUILD_ROOT%{_localedir}
+%{__make} install \
+    PREFIX=$RPM_BUILD_ROOT%{_prefix} \
+    LOCALEDIR=$RPM_BUILD_ROOT%{_localedir}
+
 install %{SOURCE1} $RPM_BUILD_ROOT%{_applnkdir}/Network/WWW
 cp -f icons/skipstone-desktop.png $RPM_BUILD_ROOT%{_pixmapsdir}/
 
