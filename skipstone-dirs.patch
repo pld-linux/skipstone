@@ -1,19 +1,31 @@
-diff -Nur skipstone-0.7.9.orig/src/skipstone skipstone-0.7.9/src/skipstone
---- skipstone-0.7.9.orig/src/skipstone	Wed Feb  6 08:42:16 2002
-+++ skipstone-0.7.9/src/skipstone	Sat Feb  9 13:44:14 2002
-@@ -1,4 +1,4 @@
+diff -Nur skipstone-0.8.2.orig/src/skipstone.h skipstone-0.8.2/src/skipstone.h
+--- skipstone-0.8.2.orig/src/skipstone.h	Fri Apr 12 01:33:18 2002
++++ skipstone-0.8.2/src/skipstone.h	Fri Apr 12 02:31:45 2002
+@@ -37,7 +37,7 @@
+ 
+ /*  dirs  */
+ #define SKIPSTONE_SYSTEM_THEME_DIR "/usr/share/skipstone/pixmaps"
+-#define SKIPSTONE_SYSTEM_PLUGIN_DIR "/usr/share/skipstone/plugins"
++#define SKIPSTONE_SYSTEM_PLUGIN_DIR "/usr/X11R6/lib/skipstone/plugins"
+ /*--------*/
+ 
+ /* bookmarks */
+diff -Nur skipstone-0.8.2.orig/src/skipstone.in skipstone-0.8.2/src/skipstone.in
+--- skipstone-0.8.2.orig/src/skipstone.in	Sat Apr  6 11:46:44 2002
++++ skipstone-0.8.2/src/skipstone.in	Fri Apr 12 02:30:37 2002
+@@ -1,20 +1,20 @@
 -#!/bin/sh
 +#!/bin/bash
+ # allow MOZILLA_FIVE_HOME to override defaults/install path
  if test -n "$MOZILLA_FIVE_HOME"; then
  	LD_LIBRARY_PATH=$MOZILLA_FIVE_HOME:$LD_LIBRARY_PATH
  	export LD_LIBRARY_PATH
-@@ -7,23 +7,21 @@
- 	else
- 		exec skipstone-bin $@
- 	fi
--elif  [ -f /usr/lib/mozilla/libgtkembedmoz.so ]; then
+-elif [ -f /usr/lib/libgtkembedmoz.so ]; then
 -	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/mozilla
 -	export MOZILLA_FIVE_HOME=/usr/lib/mozilla
+-elif  [ -f @MOZILLA_LIB_HOME@/libgtkembedmoz.so ]; then
+-	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:@MOZILLA_LIB_HOME@
+-	export MOZILLA_FIVE_HOME=@MOZILLA_LIB_HOME@
 -elif [ -f /usr/local/lib/mozilla/libgtkembedmoz.so ]; then
 -	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib/mozilla
 -	export MOZILLA_FIVE_HOME=/usr/local/lib/mozilla
@@ -21,8 +33,9 @@ diff -Nur skipstone-0.7.9.orig/src/skipstone skipstone-0.7.9/src/skipstone
 -        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/mozilla
 -        export MOZILLA_FIVE_HOME=/opt/mozilla
 +elif [ -f /usr/X11R6/lib/libgtkembedmoz.so ]; then
++	LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/X11R6/lib
 +	MOZILLA_FIVE_HOME=/usr/X11R6/lib/mozilla
-+	export MOZILLA_FIVE_HOME
++	export LD_LIBRARY_PATH MOZILLA_FIVE_HOME
 +elif [ -f /usr/lib/mozilla/libgtkembedmoz.so ]; then
 +	LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/mozilla
 +	MOZILLA_FIVE_HOME=/usr/lib/mozilla
@@ -31,9 +44,10 @@ diff -Nur skipstone-0.7.9.orig/src/skipstone skipstone-0.7.9/src/skipstone
 +	LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/X11R6/lib/mozilla
 +	MOZILLA_FIVE_HOME=/usr/X11R6/lib/mozilla
 +	export LD_LIBRARY_PATH MOZILLA_FIVE_HOME
+ 
  else 
  
- echo "Please set your MOZILLA_FIVE_HOME and LD_LIBRARY_PATH manually as I could not find them"
+@@ -22,8 +22,4 @@
       exit
  fi
  
@@ -43,19 +57,3 @@ diff -Nur skipstone-0.7.9.orig/src/skipstone skipstone-0.7.9/src/skipstone
 -	exec skipstone-bin $@
 -fi
 +exec /usr/X11R6/bin/skipstone-bin $@
-diff -Nur skipstone-0.7.9.orig/src/skipstone.h skipstone-0.7.9/src/skipstone.h
---- skipstone-0.7.9.orig/src/skipstone.h	Wed Feb  6 08:42:16 2002
-+++ skipstone-0.7.9/src/skipstone.h	Sat Feb  9 13:42:07 2002
-@@ -37,9 +37,9 @@
- 
- /*  dirs  */
- #define SKIPSTONE_LOCAL_THEME_DIR "/usr/local/share/skipstone/pixmaps"
--#define SKIPSTONE_SYSTEM_THEME_DIR "/usr/share/skipstone/pixmaps"
--#define SKIPSTONE_LOCAL_PLUGIN_DIR "/usr/local/share/skipstone/plugins"
--#define SKIPSTONE_SYSTEM_PLUGIN_DIR "/usr/share/skipstone/plugins"
-+#define SKIPSTONE_SYSTEM_THEME_DIR "/usr/X11R6/share/skipstone/pixmaps"
-+#define SKIPSTONE_LOCAL_PLUGIN_DIR "/usr/local/lib/skipstone/plugins"
-+#define SKIPSTONE_SYSTEM_PLUGIN_DIR "/usr/X11R6/lib/skipstone/plugins"
- /*--------*/
- 
- /* bookmarks */
