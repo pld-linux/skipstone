@@ -8,8 +8,14 @@ Version:	0.7.9
 Release:	1
 License:	GPL
 Group:		X11/Applications/Networking
-Group(de):	X11/Applikationen/Netzwerkwesen
+Group(cs):	X11/Aplikace/Sí»ové
+Group(de):	X11/Anwendungen/Netzwerkwesen
+Group(es):	X11/Aplicaciones/Red
+Group(fr):	X11/Applications/Réseau
 Group(pl):	X11/Aplikacje/Sieciowe
+Group(pt_BR):	X11/Aplicações/Rede
+Group(pt):	X11/Aplicações/Rede
+Group(ru):	X11/ğÒÉÌÏÖÅÎÉÑ/óÅÔÅ×ÙÅ
 Source0:	http://www.muhri.net/skipstone/%{name}-%{version}.tar.gz
 Patch0:		%{name}-Makefile.patch
 Patch1:		%{name}-dirs.patch
@@ -40,8 +46,14 @@ engine'u Mozilli - gecko.
 Summary:	Various Skipstone plugins
 Summary(pl):	Ró¿ne wtyczki do Skipstone
 Group:		X11/Applications/Networking
-Group(de):	X11/Applikationen/Netzwerkwesen
+Group(cs):	X11/Aplikace/Sí»ové
+Group(de):	X11/Anwendungen/Netzwerkwesen
+Group(es):	X11/Aplicaciones/Red
+Group(fr):	X11/Applications/Réseau
 Group(pl):	X11/Aplikacje/Sieciowe
+Group(pt_BR):	X11/Aplicações/Rede
+Group(pt):	X11/Aplicações/Rede
+Group(ru):	X11/ğÒÉÌÏÖÅÎÉÑ/óÅÔÅ×ÙÅ
 Requires:	%{name} = %{version}
 
 %description plugins
@@ -54,8 +66,14 @@ Ró¿ne wtyczki do Skipstone.
 Summary:	Skipstone plugins that require gdk-pixbuf library
 Summary(pl):	Wtyczki do Skipstone wymagaj±ce biblioteki gdk-pixbuf
 Group:		X11/Applications/Networking
-Group(de):	X11/Applikationen/Netzwerkwesen
+Group(cs):	X11/Aplikace/Sí»ové
+Group(de):	X11/Anwendungen/Netzwerkwesen
+Group(es):	X11/Aplicaciones/Red
+Group(fr):	X11/Applications/Réseau
 Group(pl):	X11/Aplikacje/Sieciowe
+Group(pt_BR):	X11/Aplicações/Rede
+Group(pt):	X11/Aplicações/Rede
+Group(ru):	X11/ğÒÉÌÏÖÅÎÉÑ/óÅÔÅ×ÙÅ
 Requires:	%{name} = %{version}
 
 %description plugins-gdkpixbuf
