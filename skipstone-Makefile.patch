@@ -1,6 +1,6 @@
-diff -Nur skipstone-0.7.8.orig/config.mk skipstone-0.7.8/config.mk
---- skipstone-0.7.8.orig/config.mk	Fri Dec 28 23:27:52 2001
-+++ skipstone-0.7.8/config.mk	Fri Feb  1 19:28:47 2002
+diff -Nur skipstone-0.8.1.orig/config.mk skipstone-0.8.1/config.mk
+--- skipstone-0.8.1.orig/config.mk	Thu Mar 28 11:26:05 2002
++++ skipstone-0.8.1/config.mk	Wed Apr 10 23:44:54 2002
 @@ -2,79 +2,33 @@
  PLUGINDIR=$(HOME)/.skipstone/plugins
  
@@ -74,7 +74,7 @@ diff -Nur skipstone-0.7.8.orig/config.mk skipstone-0.7.8/config.mk
 -	-I$(PREFIX)/include/mozilla/string \
 -	-I$(PREFIX)/include/mozilla/xpcom \
 -	-I$(PREFIX)/include/mozilla/pref \
--	-I$(PREFIX)/include/mozilla/uconv \
+-	-I$(PREFIX)/include/mozilla/uconv 
 +	-I/usr/X11R6/include/mozilla/dom \
 +	-I/usr/X11R6/include/mozilla/windowwatcher \
 +	-I/usr/X11R6/include/mozilla/webbrowserpersist \
@@ -96,7 +96,7 @@ diff -Nur skipstone-0.7.8.orig/config.mk skipstone-0.7.8/config.mk
 +	-I/usr/X11R6/include/mozilla/pref \
 +	-I/usr/X11R6/include/mozilla/gtkembedmoz \
 +	-I/usr/X11R6/include/mozilla/nspr \
-+	-I/usr/X11R6/include/mozilla/uconv \
++	-I/usr/X11R6/include/mozilla/uconv
  
  MOZILLA_LIBS = \
 -	-L/usr/lib/mozilla \
