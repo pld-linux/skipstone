@@ -6,7 +6,7 @@ Summary(pl):	Przegl±darka oparta o Gtk+, korzystaj±ca z engine'u Mozilli (gecko)
 Summary(pt_BR):	Browser que usa o toolkit GTK+ e o engine gecko do Mozilla para renderização.
 Name:		skipstone
 Version:	0.8.3
-Release:	4
+Release:	5
 License:	GPL
 Group:		X11/Applications/Networking
 Source0:	http://www.muhri.net/skipstone/%{name}-%{version}.tar.gz
@@ -16,6 +16,7 @@ Patch1:		%{name}-pld.patch
 Patch2:		%{name}_locale_pl.patch
 Patch3:		%{name}-chrome_check.patch
 Patch4:		%{name}-mozilla1.1.patch
+Patch5:		%{name}-mozilla1.2b.patch
 URL:		http://www.muhri.net/skipstone/
 BuildRequires:	autoconf
 BuildRequires:	gdk-pixbuf-devel
@@ -80,11 +81,12 @@ FavIcon.
 %patch2 -p0
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 %build
 %{__autoconf}
 
-CPPFLAGS="-I/usr/include/nspr"
+CPPFLAGS="-I/usr/include/nspr -DNEW_H=\<new.h\>"
 export CPPFLAGS
 
 %configure \
@@ -120,7 +122,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 umask 022
-rm -f %{_libdir}/mozilla/component.reg
+rm -f %{_libdir}/mozilla/components/{compreg,xpti}.dat
 MOZILLA_FIVE_HOME=%{_libdir}/mozilla regxpcom
 
 %files -f %{name}.lang
