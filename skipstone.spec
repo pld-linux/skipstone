@@ -2,18 +2,18 @@
 # Conditional build:
 %bcond_with	gtk1	# use gtk+ 1.2 instead of 2.x
 #
-%define		minmozver	5:1.6
+%define		minmozver	5:1.7
 %define		gtkv		gtk%{?with_gtk1:1}%{!?with_gtk1:2}
 Summary:	SkipStone is a simple Gtk+ web browser that utilizes Mozilla's gecko engine
 Summary(pl):	Przegl±darka oparta o Gtk+, korzystaj±ca z engine'u Mozilli (gecko)
 Summary(pt_BR):	Browser que usa o toolkit GTK+ e o engine gecko do Mozilla para renderização
 Name:		skipstone
-Version:	0.8.3
-Release:	10
+Version:	0.9.3
+Release:	0.1
 License:	GPL
 Group:		X11/Applications/Networking
 Source0:	http://www.muhri.net/skipstone/%{name}-%{version}.tar.gz
-# Source0-md5:	d44324e3664723c2cbe82ce60464dc51
+# Source0-md5:	e5f558e474dcaee673edf25877bdba5b
 Source1:	%{name}.desktop
 Patch0:		%{name}-dirs.patch
 Patch1:		%{name}-pld.patch
@@ -61,7 +61,7 @@ Mozilla para renderização.
 Summary:	Various Skipstone plugins
 Summary(pl):	Ró¿ne wtyczki do Skipstone
 Group:		X11/Applications/Networking
-Requires:	%{name}(%{gtkv}) = %{version}
+Requires:	%{name}(%{gtkv}) = %{version}-%{release}
 
 %description plugins
 Various Skipstone plugins.
@@ -73,7 +73,7 @@ Ró¿ne wtyczki do Skipstone.
 Summary:	Skipstone plugins that require gdk-pixbuf library
 Summary(pl):	Wtyczki do Skipstone wymagaj±ce biblioteki gdk-pixbuf
 Group:		X11/Applications/Networking
-Requires:	%{name}(%{gtkv}) = %{version}
+Requires:	%{name}(%{gtkv}) = %{version}-%{release}
 
 %description plugins-gdkpixbuf
 Skipstone plugins that require gdk-pixbuf library. Currently only
