@@ -27,6 +27,7 @@ BuildRequires:	mozilla-embedded(gtk2) >= %{minmozver}
 BuildRequires:	mozilla-embedded-devel >= %{minmozver}
 BuildRequires:	pkgconfig
 Requires:	mozilla-embedded(gtk2) >= %{minmozver}
+Requires:	mozilla-embedded(gtk2) <= 5:1.7.2
 Provides:	%{name}(gtk2) = %{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
