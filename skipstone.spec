@@ -24,7 +24,7 @@ URL:		http://www.muhri.net/skipstone/
 BuildRequires:	gdk-pixbuf-devel
 BuildRequires:	gtk+-devel >= 1.2.6
 BuildRequires:	libstdc++-devel
-BuildRequires:	mozilla-embedded-devel = %{mozver}
+BuildRequires:	mozilla-embedded-devel >= %{mozver}
 Requires:	mozilla-embedded = %{mozver}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
