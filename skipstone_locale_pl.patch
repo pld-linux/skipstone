@@ -1418,7 +1418,7 @@
 +#: ../src/skipstone-config.c:625
 +#, fuzzy
 +msgid "HTTP Proxy: "
-+msgstr "FTP Proxy: "
++msgstr "HTTP Proxy: "
 +
 +#: ../src/skipstone-config.c:626 ../src/skipstone-config.c:630
 +#: ../src/skipstone-config.c:632
