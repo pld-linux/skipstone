@@ -61,7 +61,7 @@ Ró¿ne wtyczki do Skipstone.
 
 %prep
 %setup -q
-#%patch0 -p1	-- needs update!
+%patch0 -p1
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
@@ -71,6 +71,9 @@ Ró¿ne wtyczki do Skipstone.
 
 mv -f locale/{zh_CN.GB2312,zh_CN}.po
 mv -f locale/{zh_TW.Big5,zh_TW}.po
+
+%{__perl} -pi -e 's@/usr/share/skipstone/plugins@%{_libdir}/skipstone/plugins@' \
+	src/skipstone.h
 
 %build
 # not really needed (gettext can handle ->UTF-8 conversion at runtime)
@@ -96,13 +99,12 @@ conv zh_TW big5
 %{__autoconf}
 
 CPPFLAGS="-I/usr/include/nspr"
-# -I/usr/include/mozilla/history"
 CXXFLAGS="%{rpmcflags} -fno-rtti -fno-exceptions"
 %configure \
 	--enable-cvs-mozilla \
 	--enable-nls \
 	--with-mozilla-includes=/usr/include/mozilla \
-	--with-mozilla-libs=/usr/lib/mozilla
+	--with-mozilla-libs=/usr/%{_lib}/mozilla
 
 %{__make}
 
