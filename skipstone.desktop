@@ -7,5 +7,5 @@ Exec=skipstone
 Terminal=false
 Type=Application
 Encoding=UTF-8
-Categories=Network;WebBrowser;
+Categories=GTK;Network;WebBrowser;
 # vi: encoding=utf-8
