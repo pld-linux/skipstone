@@ -2,14 +2,14 @@
 # Conditional build:
 # _with_gtk1	- use gtk+ 1.2 instead of 2.x
 #
-%define		minmozver	4:1.5a
+%define		minmozver	4:1.5b
 %define		gtkv		gtk%{?_with_gtk1:1}%{!?_with_gtk1:2}
 Summary:	SkipStone is a simple Gtk+ web browser that utilizes Mozilla's gecko engine
 Summary(pl):	Przegl±darka oparta o Gtk+, korzystaj±ca z engine'u Mozilli (gecko)
 Summary(pt_BR):	Browser que usa o toolkit GTK+ e o engine gecko do Mozilla para renderização
 Name:		skipstone
 Version:	0.8.3
-Release:	8
+Release:	9
 License:	GPL
 Group:		X11/Applications/Networking
 Source0:	http://www.muhri.net/skipstone/%{name}-%{version}.tar.gz
@@ -105,6 +105,8 @@ mv -f locale/{zh_TW.Big5,zh_TW}.po
 
 %build
 %if 0%{!?_with_gtk1:1}
+# not really needed (gettext can handle ->UTF-8 conversion at runtime)
+# but it's better to do conversion once at build time
 conv() {
 iconv -f ${2} -t UTF-8 locale/${1}.po | sed -e "s/\(charset=\)${2}/\1UTF-8/" > ${1}.tmp
 mv -f ${1}.tmp locale/${1}.po
@@ -126,7 +128,7 @@ conv zh_TW big5
 
 %{__autoconf}
 
-CPPFLAGS="-I/usr/include/nspr -DNEW_H=\<new.h\>"
+CPPFLAGS="-I/usr/include/nspr -I/usr/include/mozilla/history"
 CXXFLAGS="%{rpmcflags} -fno-rtti"
 %configure \
 	--with-mozilla-includes=/usr/include/mozilla \
