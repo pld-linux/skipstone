@@ -3,6 +3,7 @@
 
 Summary:	SkipStone is a simple Gtk+ web browser that utilizes Mozilla's gecko engine
 Summary(pl):	Przegl±darka oparta o Gtk+, korzystaj±ca z engine'u Mozilli (gecko)
+Summary(pt_BR):	Browser que usa o toolkit GTK+ e o engine gecko do Mozilla para renderização.
 Name:		skipstone
 Version:	0.8.2
 Release:	3
@@ -39,6 +40,10 @@ engine.
 SkipStone jest prost± przegl±dark± www opart± na Gtk+, korzystaj±c± z
 engine'u Mozilli - gecko.
 
+%description -l pt_BR
+SkipStone é um Web Browser que usa o toolkit GTK+ e o engine gecko do
+Mozilla para renderização.
+
 %package plugins
 Summary:	Various Skipstone plugins
 Summary(pl):	Ró¿ne wtyczki do Skipstone
@@ -69,7 +74,7 @@ FavIcon.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-%patch2 
+%patch2
 %patch3 -p1
 
 %build
@@ -81,7 +86,7 @@ export CPPFLAGS
 %configure \
 	--with-mozilla-includes=/usr/X11R6/include/mozilla \
 	--with-mozilla-libs=/usr/X11R6/lib/mozilla \
-    --enable-nls
+	--enable-nls
 
 %{__make}
 
