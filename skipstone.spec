@@ -128,7 +128,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 umask 022
-rm -f %{_libdir}/mozilla/components/{compreg,xpti}.dat
+rm -f %{_libdir}/mozilla/{component.reg,components/{compreg,xpti}.dat}
 MOZILLA_FIVE_HOME=%{_libdir}/mozilla regxpcom
 
 %files -f %{name}.lang
