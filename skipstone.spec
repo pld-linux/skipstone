@@ -1,9 +1,9 @@
 
-%define		minmozver	1.1
+%define		minmozver	1.0
 
 Summary:	SkipStone is a simple Gtk+ web browser that utilizes Mozilla's gecko engine
 Summary(pl):	Przegl±darka oparta o Gtk+, korzystaj±ca z engine'u Mozilli (gecko)
-Summary(pt_BR):	Browser que usa o toolkit GTK+ e o engine gecko do Mozilla para renderização.
+Summary(pt_BR):	Browser que usa o toolkit GTK+ e o engine gecko do Mozilla para renderização
 Name:		skipstone
 Version:	0.8.3
 Release:	5
@@ -33,9 +33,8 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 # can be provided by mozilla or mozilla-embedded
 %define		_noautoreqdep	libgtkembedmoz.so libgtksuperwin.so libxpcom.so
 
-%define		_prefix		/usr/X11R6
-%define		_mandir		%{_prefix}/man
 %define		_localedir	/usr/share/locale
+%define		_prefix		/usr/X11R6
 
 %description
 SkipStone is a simple Gtk+ web browser that utilizes Mozilla's gecko
@@ -83,7 +82,12 @@ FavIcon.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
-%patch6 -p1
+%patch6 -p1 -b .pofixes
+
+# handle gettext 0.10/0.11 incompatibility
+if msgfmt --version | grep -v -q '0\.11\.' ; then
+	mv -f locale/zh_TW.Big5.po{.pofixes,}
+fi
 
 %build
 %{__autoconf}
@@ -124,7 +128,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 umask 022
-rm -f %{_libdir}/mozilla/components/{compreg,xpti}.dat
+rm -f %{_libdir}/mozilla/{component.reg,components/{compreg,xpti}.dat}
 MOZILLA_FIVE_HOME=%{_libdir}/mozilla regxpcom
 
 %files -f %{name}.lang
