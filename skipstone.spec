@@ -1,11 +1,11 @@
 
-%define		mozver	0.9.7
+%define		minmozver	0.9.7
 
 Summary:	SkipStone is a simple Gtk+ web browser that utilizes Mozilla's gecko engine
 Summary(pl):	Przegl±darka oparta o Gtk+, korzystaj±ca z engine'u Mozilli (gecko)
 Name:		skipstone
 Version:	0.7.9
-Release:	1
+Release:	2
 License:	GPL
 Group:		X11/Applications/Networking
 Source0:	http://www.muhri.net/skipstone/%{name}-%{version}.tar.gz
@@ -16,8 +16,8 @@ URL:		http://www.muhri.net/skipstone/
 BuildRequires:	gdk-pixbuf-devel
 BuildRequires:	gtk+-devel >= 1.2.6
 BuildRequires:	libstdc++-devel
-BuildRequires:	mozilla-embedded-devel >= %{mozver}
-Requires:	mozilla-embedded = %{mozver}
+BuildRequires:	mozilla-embedded-devel >= %{minmozver}
+Requires:	mozilla-embedded = %(rpm -q --qf '%{VERSION}' --whatprovides mozilla-embedded)
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # can be provided by mozilla or mozilla-embedded
