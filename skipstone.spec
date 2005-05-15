@@ -4,7 +4,7 @@ Summary(pl):	Przegl±darka oparta o GTK+, korzystaj±ca z engine'u Mozilli (gecko)
 Summary(pt_BR):	Browser que usa o toolkit GTK+ e o engine gecko do Mozilla para renderização
 Name:		skipstone
 Version:	0.9.3
-Release:	9
+Release:	10
 License:	GPL
 Group:		X11/Applications/Networking
 #Source0Download: http://www.muhri.net/skipstone/page.php3?node=download
@@ -28,7 +28,7 @@ BuildRequires:	mozilla-embedded(gtk2) >= %{minmozver}
 BuildRequires:	mozilla-embedded-devel >= %{minmozver}
 BuildRequires:	pkgconfig
 Requires:	mozilla-embedded(gtk2) >= %{minmozver}
-Requires:	mozilla-embedded(gtk2) <= 5:1.7.5
+Requires:	mozilla-embedded(gtk2) = %(rpm -q --qf '%{EPOCH}:%{VERSION}' --whatprovides mozilla-embedded)
 Provides:	%{name}(gtk2) = %{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
