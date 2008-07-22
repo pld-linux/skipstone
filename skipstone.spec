@@ -1,39 +1,33 @@
-%define		minmozver	5:1.7
-Summary:	SkipStone is a simple GTK+ web browser that utilizes Mozilla's gecko engine
-Summary(pl.UTF-8):	Przeglądarka oparta o GTK+, korzystająca z engine'u Mozilli (gecko)
+# TODO: gecko widget doesn't work
+Summary:	SkipStone - a simple GTK+ web browser that utilizes Mozilla's gecko engine
+Summary(pl.UTF-8):	Przeglądarka oparta o GTK+, korzystająca z silnika Mozilli (gecko)
 Summary(pt_BR.UTF-8):	Browser que usa o toolkit GTK+ e o engine gecko do Mozilla para renderização
 Name:		skipstone
-Version:	0.9.3
-Release:	12
+Version:	1.0.1
+Release:	0.1
 License:	GPL
 Group:		X11/Applications/Networking
 #Source0Download: http://www.muhri.net/skipstone/page.php3?node=download
 Source0:	http://www.muhri.net/skipstone/%{name}-%{version}.tar.gz
-# Source0-md5:	e5f558e474dcaee673edf25877bdba5b
+# Source0-md5:	c46548d52b16a809e707a1410566fa0a
 Source1:	%{name}.desktop
 Patch0:		%{name}-dirs.patch
 Patch1:		%{name}-pld.patch
 Patch2:		%{name}_locale_pl.patch
-Patch3:		%{name}-chrome_check.patch
-Patch4:		%{name}-mozilla1.7.patch
-Patch5:		%{name}-gtk2.patch
-Patch6:		%{name}-po-fixes.patch
-Patch7:		%{name}-pic.patch
+Patch3:		%{name}-gtk2.patch
+Patch4:		%{name}-po-fixes.patch
+Patch5:		%{name}-xulrunner.patch
 URL:		http://www.muhri.net/skipstone/
 BuildRequires:	autoconf
 BuildRequires:	gettext-devel >= 0.11
 BuildRequires:	gtk+2-devel >= 2:2.2.0
 BuildRequires:	libstdc++-devel
-BuildRequires:	mozilla-embedded(gtk2) >= %{minmozver}
-BuildRequires:	mozilla-embedded-devel >= %{minmozver}
+BuildRequires:	xulrunner-devel >= 1.9
 BuildRequires:	pkgconfig
-Requires:	mozilla-embedded(gtk2) >= %{minmozver}
-Requires:	mozilla-embedded(gtk2) = %(rpm -q --qf '%{EPOCH}:%{VERSION}' --whatprovides mozilla-embedded)
-Provides:	%{name}(gtk2) = %{version}-%{release}
+BuildRequires:	rpmbuild(macros) >= 1.167
+BuildRequires:	sed >= 4.0
+%requires_eq	xulrunner-libs
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-# can be provided by mozilla or mozilla-embedded
-%define		_noautoreqdep	libgtkembedmoz.so libgtksuperwin.so libxpcom.so
 
 %define		_localedir	/usr/share/locale
 
@@ -43,7 +37,7 @@ engine.
 
 %description -l pl.UTF-8
 SkipStone jest prostą przeglądarką WWW opartą na GTK+, korzystającą z
-engine'u Mozilli - gecko.
+silnika Mozilli - gecko.
 
 %description -l pt_BR.UTF-8
 SkipStone é um Web Browser que usa o toolkit GTK+ e o engine gecko do
@@ -53,7 +47,7 @@ Mozilla para renderização.
 Summary:	Various Skipstone plugins
 Summary(pl.UTF-8):	Różne wtyczki do Skipstone
 Group:		X11/Applications/Networking
-Requires:	%{name}(gtk2) = %{version}-%{release}
+Requires:	%{name} = %{version}-%{release}
 Obsoletes:	skipstone-plugins-gdkpixbuf
 
 %description plugins
@@ -70,17 +64,12 @@ Różne wtyczki do Skipstone.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
-%patch6 -p1
-%patch7 -p1
 
-mv -f locale/{zh_CN.GB2312,zh_CN}.po
-mv -f locale/{zh_TW.Big5,zh_TW}.po
-
-%{__perl} -pi -e 's@/usr/share/skipstone/plugins@%{_libdir}/skipstone/plugins@' \
+sed -i -e 's@/usr/share/skipstone/plugins@%{_libdir}/skipstone/plugins@' \
 	src/skipstone.h
 
-# kill precompiled x86 binaries
-rm -f plugins/Up/*.{o,so}
+# kill precompiled x86_64 binaries
+rm -f plugins/ThumbSideBar/*.{o,so}
 
 %build
 # not really needed (gettext can handle ->UTF-8 conversion at runtime)
@@ -99,25 +88,18 @@ conv ja EUC-JP
 conv nl iso-8859-15
 conv pl iso-8859-2
 conv pt iso-8859-1
-conv ru koi8-r
-conv zh_CN GBK
-conv zh_TW big5
 
 %{__autoconf}
-
-CPPFLAGS="-I/usr/include/nspr"
-CXXFLAGS="%{rpmcflags} -fno-rtti -fno-exceptions"
+%{__autoheader}
+CXXFLAGS="%{rpmcxxflags} -fshort-wchar"
 %configure \
-	--enable-cvs-mozilla \
 	--enable-nls \
-	--with-mozilla-includes=/usr/include/mozilla \
-	--with-mozilla-libs=/usr/%{_lib}/mozilla
+	--with-mozilla-includes=/usr/include/xulrunner \
+	--with-mozilla-libs=/usr/%{_lib}/xulrunner-sdk/lib
 
 %{__make}
 
-cd plugins
-echo all: > Throbber/Makefile # it requires imlib2, let's skip it for a while
-%{__make}
+%{__make} -C plugins
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -132,6 +114,7 @@ cp -f icons/skipstone-desktop.png $RPM_BUILD_ROOT%{_pixmapsdir}
 
 install plugins/*/*.so $RPM_BUILD_ROOT%{_libdir}/skipstone/plugins
 cp -rf plugins/Launcher/LauncherPix $RPM_BUILD_ROOT%{_libdir}/skipstone/plugins
+cp -rf plugins/Throbber/pacspin $RPM_BUILD_ROOT%{_libdir}/skipstone/plugins
 
 %find_lang %{name}
 
@@ -140,17 +123,18 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc README* AUTHORS ChangeLog *.pl
+%doc AUTHORS ChangeLog README* convert_bookmarks.pl
 %attr(755,root,root) %{_bindir}/skipstone-bin
 %attr(755,root,root) %{_bindir}/skipstone
 %attr(755,root,root) %{_bindir}/skipdownload
 %{_datadir}/skipstone
 %dir %{_libdir}/skipstone
 %dir %{_libdir}/skipstone/plugins
-%{_desktopdir}/*.desktop
-%{_pixmapsdir}/*.png
+%{_desktopdir}/skipstone.desktop
+%{_pixmapsdir}/skipstone-desktop.png
 
 %files plugins
 %defattr(644,root,root,755)
-%{_libdir}/skipstone/plugins/LauncherPix
 %attr(755,root,root) %{_libdir}/skipstone/plugins/*.so
+%{_libdir}/skipstone/plugins/LauncherPix
+%{_libdir}/skipstone/plugins/pacspin
