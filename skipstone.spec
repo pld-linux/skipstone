@@ -1,10 +1,9 @@
-# TODO: gecko widget doesn't work
 Summary:	SkipStone - a simple GTK+ web browser that utilizes Mozilla's gecko engine
 Summary(pl.UTF-8):	Przeglądarka oparta o GTK+, korzystająca z silnika Mozilli (gecko)
 Summary(pt_BR.UTF-8):	Browser que usa o toolkit GTK+ e o engine gecko do Mozilla para renderização
 Name:		skipstone
 Version:	1.0.1
-Release:	0.1
+Release:	0.2
 License:	GPL
 Group:		X11/Applications/Networking
 #Source0Download: http://www.muhri.net/skipstone/page.php3?node=download
@@ -26,7 +25,7 @@ BuildRequires:	xulrunner-devel >= 1.9
 BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.167
 BuildRequires:	sed >= 4.0
-%requires_eq	xulrunner-libs
+%requires_eq_to	xulrunner xulrunner-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_localedir	/usr/share/locale
@@ -95,7 +94,7 @@ CXXFLAGS="%{rpmcxxflags} -fshort-wchar"
 %configure \
 	--enable-nls \
 	--with-mozilla-includes=/usr/include/xulrunner \
-	--with-mozilla-libs=/usr/%{_lib}/xulrunner-sdk/lib
+	--with-mozilla-libs=/usr/%{_lib}/xulrunner
 
 %{__make}
 
