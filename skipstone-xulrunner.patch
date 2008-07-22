@@ -27,8 +27,8 @@
  EXTRA_LIBS="$EXTRA_LIBS -lxpcom_core"
  fi
 +
-+if test -f $mozilla_libs/libxpcomglue_s.a; then
-+EXTRA_LIBS="$EXTRA_LIBS -lxpcomglue_s"
++if test -f $mozilla_libs/../xulrunner-sdk/lib/libxpcomglue_s.a; then
++EXTRA_LIBS="$EXTRA_LIBS -L$mozilla_libs/../xulrunner-sdk/lib -lxpcomglue_s"
 +fi
 +if test -f $mozilla_libs/libxul.so; then
 +EXTRA_LIBS="$EXTRA_LIBS -lxul"
