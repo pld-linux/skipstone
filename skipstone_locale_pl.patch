@@ -1,13 +1,13 @@
---- skipstone-0.9.3/locale/pl.po.orig	2004-06-28 19:28:57.000000000 +0200
-+++ skipstone-0.9.3/locale/pl.po	2004-06-30 23:34:31.719619544 +0200
-@@ -1,100 +1,84 @@
+--- skipstone-1.0.1/locale/pl.po.orig	2008-04-14 08:10:19.000000000 +0200
++++ skipstone-1.0.1/locale/pl.po	2008-07-22 23:10:37.332751816 +0200
+@@ -1,650 +1,1865 @@
 -# SkipStone Portuguese locale file
 +# SkipStone Polish locale file
  # Copyright (C) 2000 Free Software Foundation, Inc.
 -# Daniel Pereira <gunsmithcat@ip.pt>, 2000.
 +# Jakub Stachowski <qbast@go2.pl>, 2001
 +# Jaros³aw Kamper <jack@pld-linux.org>, 2002
-+# Jakub Bogusz <qboosh@pld-linux.org>, 2002-2004
++# Jakub Bogusz <qboosh@pld-linux.org>, 2002-2008
  #
  msgid ""
  msgstr ""
@@ -16,9 +16,10 @@
 -"PO-Revision-Date: 2001-04-1 11:43+0100\n"
 -"Last-Translator: Jakub Stachowski <qbast@go2.pl>\n"
 -"Language-Team: none <>\n"
-+"Project-Id-Version: SkipStone 0.9.3\n"
-+"POT-Creation-Date: 2004-06-30 23:29+0200\n"
-+"PO-Revision-Date: 2004-06-30 23:32+0200\n"
++"Project-Id-Version: SkipStone 1.0.1\n"
++"Report-Msgid-Bugs-To: \n"
++"POT-Creation-Date: 2008-07-22 22:54+0200\n"
++"PO-Revision-Date: 2008-07-22 23:01+0200\n"
 +"Last-Translator: Jakub Bogusz <qboosh@pld-linux.org>\n"
 +"Language-Team: Polish <translation-team-pl@pld-linux.org>\n"
  "MIME-Version: 1.0\n"
@@ -27,8 +28,8 @@
  
 -#: ../src/bookmarks.c:128 ../src/interface-notebook.c:592
 -#: ../src/interface.c:149
-+#: ../src/bookmarks.c:174 ../src/interface.c:198
-+#: ../src/interface-notebook.c:773
++#: ../src/bookmarks.c:174 ../src/interface.c:199
++#: ../src/interface-notebook.c:803
  msgid "Text"
  msgstr "Tekst"
  
@@ -44,8 +45,8 @@
  
 -#: ../src/bookmarks.c:130 ../src/bookmarks.c:138
 -#: ../src/interface-notebook.c:581 ../src/interface.c:138
-+#: ../src/bookmarks.c:176 ../src/bookmarks.c:189 ../src/interface.c:187
-+#: ../src/interface-notebook.c:762
++#: ../src/bookmarks.c:176 ../src/bookmarks.c:189 ../src/interface.c:189
++#: ../src/interface-notebook.c:793
  msgid "Toolbar"
  msgstr "Pasek narzêdzi"
  
@@ -86,17 +87,17 @@
 -#: ../src/skipstone-config.c:474
 -msgid "Cancel"
 -msgstr "Anuluj"
-+#: ../src/bookmarks.c:740
-+msgid "Open All Bookmarks Here"
-+msgstr "Otwórz wszystkie zak³adki"
- 
+-
 -#: ../src/bookmarks.c:256 ../src/callbacks.c:52 ../src/callbacks.c:90
 -#: ../src/skipstone-config.c:473
 -msgid "Ok"
 -msgstr "Ok"
--
++#: ../src/bookmarks.c:740
++msgid "Open All Bookmarks Here"
++msgstr "Otwórz wszystkie zak³adki"
+ 
 -#: ../src/bookmarks.c:702 ../src/context.c:88
-+#: ../src/bookmarks.c:960 ../src/context.c:141
++#: ../src/bookmarks.c:960 ../src/context.c:147
  msgid "Add Bookmark"
  msgstr "Dodaj zak³adkê"
  
@@ -120,100 +121,103 @@
 -msgstr "Ok!"
 -
 -#: ../src/callbacks.c:298
-+#: ../src/callbacks.c:459
++#: ../src/callbacks.c:500
  #, c-format
- msgid "About SkipStone %d.%d.%d"
- msgstr "O SkipStone %d.%d.%d"
+-msgid "About SkipStone %d.%d.%d"
+-msgstr "O SkipStone %d.%d.%d"
++msgid "About SkipStone %d.%d.%d (%s)"
++msgstr "O SkipStone %d.%d.%d (%s)"
  
 -#: ../src/callbacks.c:299
-+#: ../src/callbacks.c:460
++#: ../src/callbacks.c:501
  msgid ""
  "SkipStone is a light Gtk+ web browser\n"
- "that embeds Mozilla through GtkMozEmbed\n"
-@@ -102,549 +86,1694 @@
+-"that embeds Mozilla through GtkMozEmbed\n"
++"that embeds Mozilla through GtkMozEmbed or Apple WebKit through Gtk+ Webkit\n"
+ "Copyright(c)\n"
  "\tMaher Awamy <muhri@muhri.net>\n"
  "\tCharlie Schmidt <ishamael@themes.org>"
  msgstr ""
-+"SkipStone jest lekk± przegl±dark± WWW na Gtk+\n"
-+"obudowuj±c± Mozillê poprzez GtkMozEmbed\n"
++"SkipStone jest lekk± przegl±dark± WWW opart± na Gtk+\n"
++"obudowuj±c± Mozillê poprzez GtkMozEmbed lub Apple WebKit poprzez Gtk+ Webkit\n"
 +"Copyright(c)\n"
 +"\tMaher Awamy <muhri@muhri.net>\n"
 +"\tCharlie Schmidt <ishamael@themes.org>"
-+
-+#: ../src/callbacks.c:577
+ 
+-#: ../src/callbacks.c:396 ../src/callbacks.c:421 ../src/context.c:84
++#: ../src/callbacks.c:619
 +msgid "Find Results"
 +msgstr "Przeszukaj wyniki"
 +
-+#: ../src/callbacks.c:577
++#: ../src/callbacks.c:619
 +msgid "Expression was not found!"
 +msgstr "Wyra¿enie nie znalezione!"
- 
--#: ../src/callbacks.c:396 ../src/callbacks.c:421 ../src/context.c:84
-+#: ../src/callbacks.c:608
++
++#: ../src/callbacks.c:651
  msgid "Find"
  msgstr "Znajd¼"
  
 -#: ../src/callbacks.c:401
-+#: ../src/callbacks.c:616
++#: ../src/callbacks.c:659
  msgid "Find: "
  msgstr "Znajd¼:"
  
 -#: ../src/callbacks.c:411
-+#: ../src/callbacks.c:630
++#: ../src/callbacks.c:673
  msgid "Ignore case"
  msgstr "Ignoruj wielkie/ma³e litery"
  
 -#: ../src/callbacks.c:416
-+#: ../src/callbacks.c:635
++#: ../src/callbacks.c:678
  msgid "Find backwards?"
  msgstr "Szukaj od koñca"
  
 -#: ../src/callbacks.c:425 ../src/history.c:80
 -msgid "Close"
 -msgstr "Zamknij"
-+#: ../src/callbacks.c:640
++#: ../src/callbacks.c:683
 +msgid "Search in frames"
 +msgstr "Szukaj w ramkach"
 +
-+#: ../src/callbacks.c:647
++#: ../src/callbacks.c:690
 +msgid "Match entire word"
 +msgstr "Dopasowuj ca³e s³owo"
 +
-+#: ../src/callbacks.c:653
++#: ../src/callbacks.c:696
 +msgid "Wrap around"
 +msgstr "Przeno¶"
  
 -#: ../src/callbacks.c:463
-+#: ../src/callbacks.c:684
++#: ../src/callbacks.c:728
  msgid "Save everything, including images and framesets?"
  msgstr "Zapisaæ wszystko, ³±cznie z ramkami i obrazkami?"
  
 -#: ../src/callbacks.c:464 ../src/callbacks.c:481
-+#: ../src/callbacks.c:685 ../src/callbacks.c:704
++#: ../src/callbacks.c:729 ../src/callbacks.c:749
  msgid "Enter a filename to save as"
  msgstr "Podaj nazwê pliku"
  
 -#: ../src/callbacks.c:504
-+#: ../src/callbacks.c:731 ../src/callbacks.c:868 ../src/session.c:122
++#: ../src/callbacks.c:778 ../src/callbacks.c:919 ../src/session.c:131
  msgid "Error"
  msgstr "B³±d"
  
 -#: ../src/callbacks.c:504
-+#: ../src/callbacks.c:731
++#: ../src/callbacks.c:778
  msgid "Save failed, did you enter a name?"
  msgstr "B³±d zapisu, mo¿e nie poda³e¶ nazwy?"
  
 -#: ../src/context.c:12 ../src/context.c:132
-+#: ../src/callbacks.c:868
++#: ../src/callbacks.c:919
 +msgid "Failed to Set Offline status!"
 +msgstr "Nieudane przej¶cie do trybu Offline"
 +
-+#: ../src/context.c:35 ../src/context.c:200
++#: ../src/context.c:35 ../src/context.c:206
  msgid "Open in this Window"
  msgstr "Otwórz w aktualnym oknie"
  
 -#: ../src/context.c:16 ../src/context.c:137
-+#: ../src/context.c:40 ../src/context.c:206
++#: ../src/context.c:40 ../src/context.c:212
  msgid "Open in a new Window"
  msgstr "Otwórz w nowym oknie"
  
@@ -224,7 +228,7 @@
 +msgstr "¦ci±gaj adres..."
  
 -#: ../src/context.c:24 ../src/context.c:147
-+#: ../src/context.c:50 ../src/context.c:218
++#: ../src/context.c:50 ../src/context.c:224
  msgid "Copy Link location"
 -msgstr ""
 +msgstr "Kopiuj adres"
@@ -234,22 +238,22 @@
 +msgstr "Dodaj zak³adkê dla odno¶nika"
  
 -#: ../src/context.c:39 ../src/context.c:107
-+#: ../src/context.c:81 ../src/context.c:171
++#: ../src/context.c:81 ../src/context.c:177
  msgid "Open Image in this Window"
  msgstr "Otwórz w aktualnym oknie"
  
 -#: ../src/context.c:43 ../src/context.c:112
-+#: ../src/context.c:86 ../src/context.c:177
++#: ../src/context.c:86 ../src/context.c:183
  msgid "Open Image in a new Window"
  msgstr "Otwórz obrazek w nowym oknie"
  
 -#: ../src/context.c:47 ../src/context.c:117
-+#: ../src/context.c:91 ../src/context.c:183
++#: ../src/context.c:91 ../src/context.c:189
  msgid "Save Image"
  msgstr "Zapisz obrazek"
  
 -#: ../src/context.c:53 ../src/context.c:124
-+#: ../src/context.c:98 ../src/context.c:191
++#: ../src/context.c:98 ../src/context.c:197
  msgid "Copy Image location"
  msgstr "Skopiuj adres obrazka"
  
@@ -257,7 +261,7 @@
 -#: ../src/interface.c:446 ../src/skipstone-config.c:238
 -msgid "Back"
 -msgstr "Cofnij"
-+#: ../src/context.c:146 ../src/interface.c:282 ../src/interface-notebook.c:680
++#: ../src/context.c:152 ../src/interface.c:274 ../src/interface-notebook.c:707
 +msgid "View Source"
 +msgstr "Poka¿ ¼ród³o"
  
@@ -266,45 +270,45 @@
 -msgid "Forward"
 -msgstr "Do przodu"
 +#
-+#: ../src/context.c:212
++#: ../src/context.c:218
 +msgid "Download Link"
 +msgstr "¦ci±gaj adres"
  
 -#: ../src/context.c:76 ../src/interface.c:460 ../src/skipstone-config.c:246
 -msgid "Reload"
 -msgstr "Od¶wie¼"
-+#: ../src/context.c:236
++#: ../src/context.c:242
 +msgid "Reload Normal"
 +msgstr "Od¶wie¿ stronê"
  
 -#: ../src/context.c:80 ../src/interface.c:467 ../src/skipstone-config.c:250
 -msgid "Stop"
-+#: ../src/context.c:241
++#: ../src/context.c:247
 +msgid "Reload by passing Cache (shift - click)"
 +msgstr "Prze³aduj omijaj±c pamiêæ podrêczn± (shift - click)"
 +
-+#: ../src/context.c:246
++#: ../src/context.c:252
 +msgid "Reload by passing Proxy"
 +msgstr "Prze³aduj omijaj±c Proxy"
 +
-+#: ../src/context.c:251
++#: ../src/context.c:257
 +msgid "Reload by passing Proxy & Cache"
 +msgstr "Prze³aduj omijaj±c Proxy i pamiêæ podrêczn±"
 +
-+#: ../src/crash.c:29
++#: ../src/crash.c:32
 +msgid "Creating a crash recovery file\n"
 +msgstr "Tworzenie pliku do odtwarzania sesji po b³êdzie\n"
 +
-+#: ../src/crash.c:52
++#: ../src/crash.c:60
 +#, c-format
 +msgid "recovering %s\n"
 +msgstr "przywracanie %s\n"
 +
-+#: ../src/crash.c:82
++#: ../src/crash.c:90
 +msgid "Crash Recovery"
 +msgstr "Odtwarzanie sesji po b³êdzie"
 +
-+#: ../src/crash.c:88
++#: ../src/crash.c:96
 +msgid ""
 +"It appears that skipstone has crashed.\n"
 +" Click on one of the saved urls below to open it in a new window"
@@ -315,18 +319,18 @@
 -#: ../src/context.c:92 ../src/interface-notebook.c:504 ../src/interface.c:229
 -msgid "View Source"
 -msgstr "Poka¿ ¼ród³o"
-+#: ../src/crash.c:124
++#: ../src/crash.c:132
 +msgid "Supply another URL"
 +msgstr "Wprowad¼ inny adres"
 +
-+#: ../src/crash.c:125
++#: ../src/crash.c:133
 +msgid "Just start normally"
 +msgstr "Uruchom normalnie"
  
 -#: ../src/context.c:142
 -#
 -msgid "Download Link"
-+#: ../src/crash.c:158
++#: ../src/crash.c:179
 +msgid ""
 +"It looks like Skipstone is respawning too fast.\n"
 +"Check your moz-embed, it could be faulty.\n"
@@ -337,26 +341,23 @@
 -#: ../src/history.c:58
 -msgid "SkipStone - History"
 -msgstr "SkipStone - Historia"
-+#: ../src/encoding.c:29 ../src/interface.c:673
++#: ../src/encoding.c:29 ../src/interface.c:718
 +msgid "More ..."
 +msgstr "Wiêcej..."
 +
-+#: ../src/encoding.c:51 ../src/session.c:77 ../src/session.c:84
-+#: ../src/session.c:94 ../src/session.c:129 ../src/session.c:140
++#: ../src/encoding.c:53 ../src/session.c:78 ../src/session.c:85
++#: ../src/session.c:95 ../src/session.c:138 ../src/session.c:149
 +msgid "Error!"
 +msgstr "B³±d"
 +
-+#: ../src/encoding.c:51
++#: ../src/encoding.c:53
 +msgid "Failed to set Charset"
 +msgstr "Nieudane ustawienie kodowania"
 +
 +#: ../src/encoding.h:5
 +msgid "Off"
 +msgstr "Wy³±cz"
- 
--#: ../src/history.c:77
--msgid "Clear All"
--msgstr "Usuñ wszystkie"
++
 +#
 +#: ../src/encoding.h:6
 +msgid "Chinese"
@@ -369,8 +370,7 @@
 +#: ../src/encoding.h:8 ../src/skipstone-config.c:740
 +msgid "Japanese"
 +msgstr "Japoñski"
- 
--#: ../src/history.c:192
++
 +#: ../src/encoding.h:9 ../src/skipstone-config.c:743
 +msgid "Korean"
 +msgstr "Koreañski"
@@ -558,7 +558,10 @@
 +#: ../src/encoding.h:58
 +msgid "Korean (EUC-KR)"
 +msgstr "Koreañski"
-+
+ 
+-#: ../src/history.c:77
+-msgid "Clear All"
+-msgstr "Usuñ wszystkie"
 +#: ../src/encoding.h:59
 +msgid "Nordic (ISO-8859-10)"
 +msgstr "Nordycki"
@@ -638,7 +641,8 @@
 +#: ../src/encoding.h:79
 +msgid "Western (Windows-1252)"
 +msgstr "Zachodni (Windows-1252)"
-+
+ 
+-#: ../src/history.c:192
 +#: ../src/history.c:66
 +#, c-format
 +msgid "SkipStone - History (%d) items"
@@ -667,17 +671,17 @@
 +msgid "Remove"
 +msgstr "Usuñ"
 +
-+#: ../src/interface.c:41 ../src/interface-notebook.c:590
++#: ../src/interface.c:43 ../src/interface-notebook.c:617
  msgid "File"
  msgstr "Plik"
  
 -#: ../src/interface-notebook.c:452 ../src/interface.c:37
-+#: ../src/interface.c:47
++#: ../src/interface.c:49
  msgid "New Window"
  msgstr "Nowe okno"
  
 -#: ../src/interface-notebook.c:462 ../src/interface.c:42
-+#: ../src/interface.c:53
++#: ../src/interface.c:55
  msgid "Open in a New Window"
  msgstr "Otwórz w nowym oknie"
  
@@ -700,26 +704,26 @@
 -#: ../src/interface-notebook.c:492 ../src/interface.c:72
 -msgid "Exit..."
 -msgstr "Zakoñcz"
-+#: ../src/interface.c:84 ../src/interface-notebook.c:638
++#: ../src/interface.c:86 ../src/interface-notebook.c:665
 +msgid "Save Session"
 +msgstr "Zapisz sesjê"
 +
-+#: ../src/interface.c:90 ../src/interface-notebook.c:643
++#: ../src/interface.c:92 ../src/interface-notebook.c:670
 +msgid "Load Session"
 +msgstr "Za³aduj sesjê"
 +
-+#: ../src/interface.c:98 ../src/interface-notebook.c:651
++#: ../src/interface.c:100 ../src/interface-notebook.c:678
 +msgid "Work Offline"
 +msgstr "Pracuj Offline"
  
 -#: ../src/interface-notebook.c:498 ../src/interface.c:77
-+#: ../src/interface.c:120 ../src/interface-notebook.c:674
++#: ../src/interface.c:122 ../src/interface-notebook.c:701
  msgid "Windows"
  msgstr "Okna"
  
 -#: ../src/interface-notebook.c:525 ../src/interface.c:82
 -#: ../src/skipstone-config.c:50
-+#: ../src/interface.c:125 ../src/interface-notebook.c:701
++#: ../src/interface.c:127 ../src/interface-notebook.c:732
 +#: ../src/skipstone-config.c:87
  msgid "Navigation"
  msgstr "Nawigacja"
@@ -727,7 +731,7 @@
 -#: ../src/interface-notebook.c:541 ../src/interface.c:98
 -msgid "Reload Page"
 -msgstr "Od¶wie¿ stronê"
-+#: ../src/interface.c:132 ../src/interface-notebook.c:707
++#: ../src/interface.c:134 ../src/interface-notebook.c:738
 +msgid "Go"
 +msgstr "Id¼"
  
@@ -743,7 +747,7 @@
 -
 -#: ../src/interface-notebook.c:556 ../src/interface.c:113
 -msgid "Preferences"
-+#: ../src/interface.c:162 ../src/interface-notebook.c:737
++#: ../src/interface.c:164 ../src/interface-notebook.c:768
 +msgid "Settings"
  msgstr "Ustawienia"
  
@@ -752,180 +756,186 @@
 -msgstr "Opcje"
 -
 -#: ../src/interface.c:124
-+#: ../src/interface.c:173
++#: ../src/interface.c:175
  msgid "Switch to Tabbed view"
  msgstr "Prze³±cz w tryb zak³adek"
  
 -#: ../src/interface-notebook.c:571 ../src/interface.c:128
-+#: ../src/interface.c:177 ../src/interface-notebook.c:752
++#: ../src/interface.c:179 ../src/interface-notebook.c:783
  msgid "Use SkipStone MIME?"
  msgstr "Domy¶lna obs³uga MIME?"
  
 -#: ../src/interface-notebook.c:587 ../src/interface.c:144
-+#: ../src/interface.c:193 ../src/interface-notebook.c:768
++#: ../src/interface.c:195 ../src/interface-notebook.c:799
  msgid "Pixmaps"
  msgstr "Obrazki"
  
 -#: ../src/interface-notebook.c:597 ../src/interface.c:154
-+#: ../src/interface.c:203 ../src/interface-notebook.c:778
++#: ../src/interface.c:203 ../src/interface-notebook.c:807
  msgid "Both"
  msgstr "Oba"
  
 -#: ../src/interface-notebook.c:602 ../src/interface.c:159
-+#: ../src/interface.c:208 ../src/interface-notebook.c:783
++#: ../src/interface.c:207 ../src/interface-notebook.c:811
  msgid "Themes"
  msgstr "Style"
  
 -#: ../src/interface-notebook.c:636 ../src/interface.c:167
-+#: ../src/interface.c:216 ../src/interface-notebook.c:817
++#: ../src/interface.c:215 ../src/interface-notebook.c:845
 +msgid "Encoding"
 +msgstr "Kodowanie"
 +
-+#: ../src/interface.c:220 ../src/interface-notebook.c:822
++#: ../src/interface.c:219 ../src/interface-notebook.c:850
  msgid "Hide Bookmark toolbar"
  msgstr "Ukryj pasek zak³adek"
  
 -#: ../src/interface-notebook.c:640 ../src/interface.c:172
-+#: ../src/interface.c:225 ../src/interface-notebook.c:826
++#: ../src/interface.c:224 ../src/interface-notebook.c:854
  msgid "Hide Navigation toolbar"
  msgstr "Ukryj pasek nawigacji"
  
 -#: ../src/interface-notebook.c:658 ../src/interface.c:179
-+#: ../src/interface.c:232 ../src/interface-notebook.c:843
++#: ../src/interface.c:231 ../src/interface-notebook.c:871
  msgid "Bookmarks"
  msgstr "Zak³adki"
  
 -#: ../src/interface-notebook.c:663 ../src/interface.c:186
-+#: ../src/interface.c:239 ../src/interface-notebook.c:848
++#: ../src/interface.c:238 ../src/interface-notebook.c:876
  msgid "Help"
  msgstr "Pomoc"
  
 -#: ../src/interface-notebook.c:669 ../src/interface.c:192
-+#: ../src/interface.c:245 ../src/interface-notebook.c:854
++#: ../src/interface.c:244 ../src/interface-notebook.c:882
  msgid "About SkipStone"
  msgstr "O SkipStone"
  
 -#: ../src/interface-notebook.c:510 ../src/interface.c:234
-+#: ../src/interface.c:287 ../src/interface-notebook.c:686
++#: ../src/interface.c:279 ../src/interface-notebook.c:713
  msgid "History"
  msgstr "Historia"
  
 -#: ../src/interface.c:446
-+#: ../src/interface.c:546 ../src/skipstone-config.c:479
++#: ../src/interface.c:283 ../src/interface-notebook.c:718
++msgid "Full Screen"
++msgstr "Pe³ny ekran"
++
++#: ../src/interface.c:580 ../src/skipstone-config.c:479
 +msgid "Back"
 +msgstr "Cofnij"
 +
-+#: ../src/interface.c:546
++#: ../src/interface.c:580
  msgid "Go back to previous page"
  msgstr "Powróæ do poprzedniej strony"
  
 -#: ../src/interface.c:453
-+#: ../src/interface.c:552 ../src/skipstone-config.c:483
++#: ../src/interface.c:586 ../src/skipstone-config.c:483
 +msgid "Forward"
 +msgstr "Do przodu"
 +
-+#: ../src/interface.c:552
++#: ../src/interface.c:586
  msgid "Go Forward"
  msgstr "Nastêpna strona"
  
 -#: ../src/interface.c:460
 -msgid "Reloads current Page"
 -msgstr "Od¶wie¿ stronê"
-+#: ../src/interface.c:558 ../src/skipstone-config.c:487
++#: ../src/interface.c:592 ../src/skipstone-config.c:487
 +msgid "Reload"
 +msgstr "Od¶wie¼"
 +
-+#: ../src/interface.c:558
++#: ../src/interface.c:592
 +msgid "Reloads current Page, shift-click to by pass cache or right click for more options"
 +msgstr "Prze³adowuje aktualn± stronê, shift+klikniêcie omija cache, prawy przycisk daje wiêcej opcji"
  
 -#: ../src/interface.c:467
-+#: ../src/interface.c:565 ../src/skipstone-config.c:491
++#: ../src/interface.c:599 ../src/skipstone-config.c:491
 +msgid "Stop"
 +msgstr "Zatrzymaj"
 +
-+#: ../src/interface.c:565
++#: ../src/interface.c:599
  msgid "Stops Loading"
  msgstr "Przerwij ³adowanie"
  
 -#: ../src/interface.c:478
-+#: ../src/interface.c:576
++#: ../src/interface.c:610
  msgid "Enter a URL here"
  msgstr "Wpisz adres"
  
 -#: ../src/interface.c:483
-+#: ../src/interface.c:580 ../src/skipstone-config.c:83
++#: ../src/interface.c:614 ../src/skipstone-config.c:83
 +#: ../src/skipstone-config.c:280 ../src/skipstone-config.c:495
 +msgid "Home"
 +msgstr "Start"
 +
-+#: ../src/interface.c:580
++#: ../src/interface.c:614
  msgid "Go to Homepage"
  msgstr "Przejd¼ do strony domowej"
  
 -#: ../src/interface-notebook.c:457
-+#: ../src/interface-notebook.c:281 ../src/moz_callbacks.c:156
-+#: ../src/moz_callbacks.c:180
++#: ../src/interface-notebook.c:291 ../src/moz_callbacks.c:167
++#: ../src/moz_callbacks.c:191 ../src/webkit_callbacks.c:105
++#: ../src/webkit_callbacks.c:129
 +#, c-format
 +msgid "SkipStone - %s"
 +msgstr "SkipStone - %s"
 +
-+#: ../src/interface-notebook.c:564 ../src/moz_callbacks.c:151
++#: ../src/interface-notebook.c:592 ../src/moz_callbacks.c:162
++#: ../src/webkit_callbacks.c:100
 +msgid "Untitled Document"
 +msgstr "Dokument bez tytu³u"
 +
-+#: ../src/interface-notebook.c:596
++#: ../src/interface-notebook.c:623
 +msgid "New Tab"
 +msgstr "Nastêpna zak³adka"
 +
-+#: ../src/interface-notebook.c:602
++#: ../src/interface-notebook.c:629
  msgid "De-Tab"
 -msgstr ""
 +msgstr "Odzak³adkuj"
- 
--#: ../src/interface-notebook.c:515
-+#: ../src/interface-notebook.c:607
++
++#: ../src/interface-notebook.c:634
 +msgid "Open in a New Tab"
 +msgstr "Otwórz w nowym oknie"
-+
-+#: ../src/interface-notebook.c:691
+ 
+-#: ../src/interface-notebook.c:515
++#: ../src/interface-notebook.c:722
  msgid "Next tab"
  msgstr "Nastêpna zak³adka"
  
 -#: ../src/interface-notebook.c:520
-+#: ../src/interface-notebook.c:696
++#: ../src/interface-notebook.c:727
  msgid "Previous tab"
  msgstr "Poprzednia zak³adka"
  
 -#: ../src/interface-notebook.c:567
-+#: ../src/interface-notebook.c:748
++#: ../src/interface-notebook.c:779
  msgid "Switch to windowed view"
  msgstr "Prze³±cz w tryb okien"
  
 -#: ../src/interface-notebook.c:610
-+#: ../src/interface-notebook.c:791
++#: ../src/interface-notebook.c:819
  msgid "Notebook tabs"
 -msgstr ""
 +msgstr "Umiejscowienie zak³adek"
  
 -#: ../src/interface-notebook.c:616
-+#: ../src/interface-notebook.c:797
++#: ../src/interface-notebook.c:825
  msgid "Top"
  msgstr "Góra"
  
 -#: ../src/interface-notebook.c:621
 -msgid "Buttom"
-+#: ../src/interface-notebook.c:802
++#: ../src/interface-notebook.c:830
 +msgid "Bottom"
  msgstr "Dó³"
  
 -#: ../src/interface-notebook.c:626
-+#: ../src/interface-notebook.c:807
++#: ../src/interface-notebook.c:835
  msgid "Left"
  msgstr "Lewo"
  
 -#: ../src/interface-notebook.c:631
-+#: ../src/interface-notebook.c:812
++#: ../src/interface-notebook.c:840
  msgid "Right"
  msgstr "Prawo"
  
@@ -934,7 +944,7 @@
 +msgid "Could not open the url arg file for some reason\n"
 +msgstr "Z jakiego¶ powodu nie mo¿na otworzyæ adresu\n"
 +
-+#: ../src/main.c:68
++#: ../src/main.c:75
 +msgid ""
 +"MOZILLA_FIVE_HOME is not set !, bailing out .. set it like this\n"
 +"export MOZILLA_FIVE_HOME=/path/to/mozilla \n"
@@ -944,30 +954,46 @@
 +"export MOZILLA_FIVE_HOME=/path/to/mozilla \n"
 +"i spróbowaæ ponownie.\n"
 +
-+#: ../src/main.c:109
++#: ../src/main.c:115
 +msgid "Recovering from crash\n"
 +msgstr "Odzyskiwanie po awarii\n"
 +
-+#: ../src/main.c:132
++#: ../src/main.c:129
++#, c-format
++msgid "Usage: skipstone -f http://www.someurl.com http://www.someurl2.com, ... \n"
++msgstr "Sk³adnia: skipstone -f http://www.jakisurl.com http://www.innyurl.com, ...\n"
++
++#: ../src/main.c:130
++#, c-format
++msgid "use --fullscreen or -f for fullscreen mode at startup\n"
++msgstr "opcja --fullscreen lub -f powoduje uruchomienie w trybie pe³noekranowym \n"
++
++#: ../src/main.c:131
++#, c-format
++msgid "--help, this text\n"
++msgstr "--help - ten tekst\n"
++
++#: ../src/main.c:163
 +msgid "Failed to get single embed object, please check your Embed!"
 +msgstr "Nie uda³o siê uzyskaæ ani jednego obiektu embed, proszê sprawdziæ Embed!"
 +
-+#: ../src/moz_callbacks.c:110 ../src/moz_callbacks.c:454
++#: ../src/moz_callbacks.c:121 ../src/moz_callbacks.c:466
++#: ../src/webkit_callbacks.c:252
 +msgid "Loading ..."
 +msgstr "£adowanie ..."
 +
-+#: ../src/moz_callbacks.c:445
++#: ../src/moz_callbacks.c:457
  msgid "Redirecting ..."
  msgstr "Przekierowywanie ..."
  
 -#: ../src/moz_callbacks.c:235
 -msgid "Transfering ..."
-+#: ../src/moz_callbacks.c:448
++#: ../src/moz_callbacks.c:460
 +msgid "Transferring ..."
  msgstr "£adowanie strony ..."
  
 -#: ../src/moz_callbacks.c:237
-+#: ../src/moz_callbacks.c:451
++#: ../src/moz_callbacks.c:463
  msgid "Authorizing ..."
  msgstr "Autoryzacja ..."
  
@@ -976,36 +1002,70 @@
 -msgstr "£adowanie ..."
 -
 -#: ../src/moz_callbacks.c:241
-+#: ../src/moz_callbacks.c:457
++#: ../src/moz_callbacks.c:469 ../src/webkit_callbacks.c:325
  msgid "Done ..."
  msgstr "Gotowe"
  
 -#: ../src/moz_callbacks.c:246
-+#: ../src/moz_callbacks.c:460
++#: ../src/moz_callbacks.c:472
  msgid "Could not find site ..."
  msgstr "Nieznany serwer"
  
 -#: ../src/moz_callbacks.c:248
-+#: ../src/moz_callbacks.c:463
++#: ../src/moz_callbacks.c:475
  msgid "Could not connect to site ..."
  msgstr "Nie uda³o siê po³±czyæ z serwerem"
  
 -#: ../src/moz_callbacks.c:250
-+#: ../src/moz_callbacks.c:466
++#: ../src/moz_callbacks.c:478
  msgid "Connection timeout ..."
  msgstr "Limit czasu wyczerpany"
  
 -#: ../src/moz_callbacks.c:252
-+#: ../src/moz_callbacks.c:469
++#: ../src/moz_callbacks.c:481
  msgid "Transfer interrupted ..."
  msgstr "Przerwano"
  
 -#: ../src/skipstone-config.c:50
 -msgid "Helper Apps"
 -msgstr "Pomocnicze programy"
-+#: ../src/moz_callbacks.c:511
++#: ../src/moz_callbacks.c:526
 +msgid "clicked on some other components\n"
 +msgstr "klikniêto na jakich¶ innych komponentach\n"
+ 
+-#: ../src/skipstone-config.c:50 ../src/skipstone-config.c:206
+-msgid "Misc"
+-msgstr "Ró¿ne"
++#: ../src/PromptService.cpp:204
++msgid "Ok"
++msgstr "OK"
+ 
+-#: ../src/skipstone-config.c:50
+-msgid "Mozilla"
+-msgstr "Mozilla"
++#: ../src/PromptService.cpp:207 ../src/SkipStonePrompter.cpp:342
++#: ../src/SkipStonePrompter.cpp:407
++msgid "Cancel"
++msgstr "Anuluj"
+ 
+-#: ../src/skipstone-config.c:50 ../src/skipstone-config.c:357
+-msgid "Fonts"
+-msgstr "Czcionki"
++#: ../src/PromptService.cpp:210
++msgid "Yes"
++msgstr "Tak"
++
++#: ../src/PromptService.cpp:213
++msgid "No"
++msgstr "Nie"
++
++#: ../src/PromptService.cpp:219
++msgid "Revert"
++msgstr "Wycofaj"
++
++#: ../src/PromptService.cpp:222
++msgid "Don't Save"
++msgstr "Nie zapisuj"
 +
 +#: ../src/session.c:23
 +msgid "Choose a session file to load"
@@ -1015,44 +1075,44 @@
 +msgid "Choose a session file to save to"
 +msgstr "Wybierz plik sesji do zachowania"
 +
-+#: ../src/session.c:77
++#: ../src/session.c:78
 +msgid "Couldn't save session!"
 +msgstr "Nie mo¿na zapisaæ sesji!"
- 
--#: ../src/skipstone-config.c:50 ../src/skipstone-config.c:206
--msgid "Misc"
--msgstr "Ró¿ne"
-+#: ../src/session.c:83 ../src/session.c:128
-+#, c-format
-+msgid "Given path %s is not a file!"
-+msgstr "Podana ¶cie¿ka %s nie jest plikiem!"
- 
--#: ../src/skipstone-config.c:50
--msgid "Mozilla"
--msgstr "Mozilla"
-+#: ../src/session.c:93
-+#, c-format
-+msgid "Couldn't open session  file %s for writing\n"
-+msgstr "Nie mo¿na otworzyæ pliku sesji %s do zapisu\n"
- 
--#: ../src/skipstone-config.c:50 ../src/skipstone-config.c:357
--msgid "Fonts"
--msgstr "Czcionki"
-+#: ../src/session.c:122
-+msgid "Couldn't read session file!"
-+msgstr "Nie mo¿na odczytaæ pliku sesji!"
  
 -#: ../src/skipstone-config.c:50 ../src/skipstone-config.c:412
 -msgid "Languages"
 -msgstr "Jêzyki"
-+#: ../src/session.c:139
++#: ../src/session.c:84 ../src/session.c:137
 +#, c-format
-+msgid "Couldn't open session file %s for reading\n"
-+msgstr "Nie mo¿na otworzyæ pliku sesji %s do odczytu\n"
++msgid "Given path %s is not a file!"
++msgstr "Podana ¶cie¿ka %s nie jest plikiem!"
  
 -#: ../src/skipstone-config.c:51
 -msgid "Load all images"
 -msgstr "£aduj wszystkie obrazki"
++#: ../src/session.c:94
++#, c-format
++msgid "Couldn't open session  file %s for writing\n"
++msgstr "Nie mo¿na otworzyæ pliku sesji %s do zapisu\n"
+ 
+-#: ../src/skipstone-config.c:52
+-msgid "Only load images from originating server"
+-msgstr "£aduj obrazki tylko ze ¼ród³owego serwera"
++#: ../src/session.c:131
++msgid "Couldn't read session file!"
++msgstr "Nie mo¿na odczytaæ pliku sesji!"
+ 
+-#: ../src/skipstone-config.c:53
+-msgid "Don't load images"
+-msgstr "Nie ³aduj obrazków"
++#: ../src/session.c:148
++#, c-format
++msgid "Couldn't open session file %s for reading\n"
++msgstr "Nie mo¿na otworzyæ pliku sesji %s do odczytu\n"
+ 
+-#: ../src/skipstone-config.c:55
+-msgid "Off"
+-msgstr "Wy³±cz"
 +#: ../src/skipdownload.c:21
 +msgid "Select Directory or File"
 +msgstr "Wybierz katalog lub plik"
@@ -1061,16 +1121,17 @@
 +msgid "Sorry, you need to specify a path that does not contain nonexistent directories."
 +msgstr "Trzeba podaæ ¶cie¿kê, która nie zawiera nie istniej±cych katalogów."
  
--#: ../src/skipstone-config.c:52
--msgid "Only load images from originating server"
--msgstr "£aduj obrazki tylko ze ¼ród³owego serwera"
+-#: ../src/skipstone-config.c:56
+-#
+-msgid "Chinese"
+-msgstr "Chiñski"
 +#: ../src/skipdownload.c:392 ../src/skipdownload.c:441
 +msgid "Location"
 +msgstr "Adres"
  
--#: ../src/skipstone-config.c:53
--msgid "Don't load images"
--msgstr "Nie ³aduj obrazków"
+-#: ../src/skipstone-config.c:57
+-msgid "East asian"
+-msgstr "Wschodnioazjatycki"
 +#: ../src/skipdownload.c:396
 +msgid "Skipdownload Queue"
 +msgstr "Kolejka Skipdownload"
@@ -1079,17 +1140,16 @@
 +msgid "Insert a new url"
 +msgstr "Wstaw nowy adres"
  
--#: ../src/skipstone-config.c:55
--msgid "Off"
--msgstr "Wy³±cz"
+-#: ../src/skipstone-config.c:58
+-msgid "Japanese"
+-msgstr "Japoñski"
 +#: ../src/skipdownload.c:442
 +msgid "Select"
 +msgstr "Wybierz czcionkê"
  
--#: ../src/skipstone-config.c:56
--#
--msgid "Chinese"
--msgstr "Chiñski"
+-#: ../src/skipstone-config.c:59
+-msgid "Korean"
+-msgstr "Koreañski"
 +#: ../src/skipdownload.c:477
 +msgid "Select Directory"
 +msgstr "Wybierz katalog"
@@ -1098,51 +1158,65 @@
 +msgid "SkipDownload"
 +msgstr "Pomiñ ¦ci±ganie"
  
--#: ../src/skipstone-config.c:57
--msgid "East asian"
--msgstr "Wschodnioazjatycki"
+-#: ../src/skipstone-config.c:60
+-msgid "Russian"
+-msgstr "Rosyjski"
 +#: ../src/skipdownload.c:572
 +msgid "Preparing ..."
 +msgstr "£adowanie strony ..."
  
--#: ../src/skipstone-config.c:58
--msgid "Japanese"
--msgstr "Japoñski"
+-#: ../src/skipstone-config.c:61
+-msgid "Simplified Chinese"
+-msgstr "Uproszczony chiñski"
 +#: ../src/skipdownload.c:612
 +msgid "Usage: skipdownload url\n"
 +msgstr "U¿ycie: skipdownload adres\n"
  
--#: ../src/skipstone-config.c:59
--msgid "Korean"
--msgstr "Koreañski"
-+#: ../src/skipstone-config.c:84
-+msgid "Helper Apps"
-+msgstr "Pomocnicze programy"
- 
--#: ../src/skipstone-config.c:60
--msgid "Russian"
--msgstr "Rosyjski"
-+#: ../src/skipstone-config.c:85 ../src/skipstone-config.c:343
-+msgid "Prefixes"
-+msgstr "Ustawienia"
- 
--#: ../src/skipstone-config.c:61
--msgid "Simplified Chinese"
--msgstr "Uproszczony chiñski"
-+#: ../src/skipstone-config.c:86 ../src/skipstone-config.c:389
-+msgid "Misc"
-+msgstr "Ró¿ne"
- 
 -#: ../src/skipstone-config.c:62
 -msgid "Traditional Chinese"
 -msgstr "Tradycyjny chiñski"
-+#: ../src/skipstone-config.c:88
-+msgid "Mozilla"
-+msgstr "Mozilla"
++#: ../src/SkipStoneBadCertListener.cpp:80
++#, c-format
++msgid "It was not possible to automatically trust `%s'. It is possible that someone is intercepting your communication to obtain your confidential information."
++msgstr "Nie mo¿na by³o automatycznie zaufaæ `%s'. Mo¿eliwe, ¿e kto¶ przechwytuje komunikacjê w celu uzyskania informacji poufnych."
  
 -#: ../src/skipstone-config.c:63
 -msgid "Ukrainian"
 -msgstr "Ukraiñski"
++#: ../src/SkipStoneBadCertListener.cpp:85
++#, c-format
++msgid "You should only connect to the site if you are certain you are connected to `%s'."
++msgstr "Mo¿na po³±czyæ siê z t± stron± tylko je¶li mamy pewno¶æ, ¿e jeste¶my po³±czeni z `%s'."
+ 
++#: ../src/SkipStoneBadCertListener.cpp:90
++msgid "Connect to untrusted site?"
++msgstr "Po³±czyæ siê z niezaufan± stron±?"
++
++#: ../src/SkipStoneBadCertListener.cpp:92
++msgid "Untrusted Site"
++msgstr "Niezaufana strona"
++
++#: ../src/SkipStoneBadCertListener.cpp:92
++msgid "Trust this security information from now on"
++msgstr "Ufaj od teraz tej informacji o bezpieczeñstwie"
++
++#: ../src/skipstone-config.c:84
++msgid "Helper Apps"
++msgstr "Pomocnicze programy"
++
++#: ../src/skipstone-config.c:85 ../src/skipstone-config.c:343
++msgid "Prefixes"
++msgstr "Ustawienia"
++
++#: ../src/skipstone-config.c:86 ../src/skipstone-config.c:389
++msgid "Misc"
++msgstr "Ró¿ne"
++
++#: ../src/skipstone-config.c:88
++msgid "Mozilla"
++msgstr "Mozilla"
+ 
+-#: ../src/skipstone-config.c:126
 +#: ../src/skipstone-config.c:89 ../src/skipstone-config.c:626
 +msgid "Proxy"
 +msgstr "Proxy: "
@@ -1150,7 +1224,7 @@
 +#: ../src/skipstone-config.c:90 ../src/skipstone-config.c:721
 +msgid "Appearance"
 +msgstr "Wygl±d"
- 
++
 +#: ../src/skipstone-config.c:91 ../src/skipstone-config.c:764
 +msgid "Fonts"
 +msgstr "Czcionki"
@@ -1158,8 +1232,7 @@
 +#: ../src/skipstone-config.c:92 ../src/skipstone-config.c:911
 +msgid "Languages"
 +msgstr "Jêzyki"
- 
--#: ../src/skipstone-config.c:126
++
 +#: ../src/skipstone-config.c:127
  msgid "SkipStone configuration"
  msgstr "Konfiguracje SkipStone"
@@ -1184,7 +1257,7 @@
 +#: ../src/skipstone-config.c:250
 +#, c-format
 +msgid "Failed to load plugin %s config widget!"
-+msgstr "Nie uda³o siê uruchomiæ programu pocztowego!"
++msgstr "Nie uda³o siê wczytaæ widgetu konfiguracyjnego wtyczki %s!"
 +
 +#: ../src/skipstone-config.c:288
  msgid "Home page: "
@@ -1419,10 +1492,6 @@
 -#: ../src/skipstone-config.c:327
 -msgid "Disk Cache (0 to disable) "
 -msgstr "Bufor dyskowy (0 by wy³±czyæ) "
--
--#: ../src/skipstone-config.c:330
--msgid "Memory Cache (0 to disable) "
--msgstr "Bufor w pamiêcu (0 by wy³±czyæ)"
 +#: ../src/skipstone-config.c:726
 +msgid "Use WebPage Provided Colors?"
 +msgstr "U¿yæ kolorów strony?"
@@ -1483,6 +1552,10 @@
 +msgid "Font for: "
 +msgstr "Czcionka dla: "
  
+-#: ../src/skipstone-config.c:330
+-msgid "Memory Cache (0 to disable) "
+-msgstr "Bufor w pamiêcu (0 by wy³±czyæ)"
+-
 -#: ../src/skipstone-config.c:362
 +#: ../src/skipstone-config.c:804
  msgid "Serif Font: "
@@ -1585,8 +1658,7 @@
 +#: ../src/skipstone-config.c:1357
 +msgid "Catalan (ca)"
 +msgstr "Kataloñski (ca)"
- 
--#: ../src/support.c:56
++
 +#
 +#: ../src/skipstone-config.c:1358
 +msgid "Chinese (zh)"
@@ -1824,17 +1896,17 @@
 +msgid "Ukrainian (uk)"
 +msgstr "Ukraiñski (uk)"
 +
-+#: ../src/skipstone-plugin.c:120
++#: ../src/skipstone-plugin.c:123
 +#, c-format
 +msgid "SkipStone skipped plugin %s, its already loaded but appears in another location\n"
 +msgstr "Skipstone pomin±³ wtyczkê %s, jest ona ju¿ wczytana, ale istnieje w innym miejscu\n"
 +
-+#: ../src/skipstone-plugin.c:137
++#: ../src/skipstone-plugin.c:140
 +#, c-format
 +msgid "Plugin: \"%s\" was not loaded, moving on!\n"
 +msgstr "Wtyczka \"%s\" nie za³adowana, kontunuujê!\n"
 +
-+#: ../src/skipstone-plugin.c:157
++#: ../src/skipstone-plugin.c:160
 +#, c-format
 +msgid ""
 +"Could not load plugin: \"%s\" \n"
@@ -1843,12 +1915,12 @@
 +"Nie mo¿na wczytaæ wtyczki: \"%s\" \n"
 +"B³±d dynamicznego loadera: %s\n"
 +
-+#: ../src/skipstone-plugin.c:164
++#: ../src/skipstone-plugin.c:167
 +#, c-format
 +msgid "Dynamic loader error while loading plugin: \"%s\":%s\n"
 +msgstr "B³±d podczas dynamicznego ³adowania wtyczki: \"%s\":%s\n"
 +
-+#: ../src/skipstone-plugin.c:171
++#: ../src/skipstone-plugin.c:174
 +#, c-format
 +msgid "SkipStone encountered an error when initilizing plugin: \"%s\"\n"
 +msgstr "SkipStone napotka³ b³±d podczas inicjalizacji wtyczki: \"%s\"\n"
@@ -1896,7 +1968,8 @@
 +#: ../src/skipstone-print.c:121
 +msgid "GreyScale"
 +msgstr "Skala szaro¶ci"
-+
+ 
+-#: ../src/support.c:56
 +#: ../src/skipstone-print.c:123
 +msgid "Color"
 +msgstr "Zamknij"
@@ -1965,13 +2038,29 @@
 +msgid "Left: "
 +msgstr "Lewy: "
 +
-+#: ../src/skipstone-print.c:273
++#: ../src/skipstone-print.c:274
 +msgid "Print Error!"
 +msgstr "B³±d druku!"
 +
-+#: ../src/skipstone-print.c:273
++#: ../src/skipstone-print.c:274
 +msgid "Print Failed!"
 +msgstr "Drukowanie nieudane!"
++
++#: ../src/SkipStonePrompter.cpp:276 ../src/SkipStonePrompter.cpp:364
++msgid "SkipStone Prompt"
++msgstr "Pytanie SkipStone"
++
++#: ../src/SkipStonePrompter.cpp:289
++msgid "User Name"
++msgstr "U¿ytkownik"
++
++#: ../src/SkipStonePrompter.cpp:305
++msgid "Password"
++msgstr "Has³o"
++
++#: ../src/SkipStonePrompter.cpp:338 ../src/SkipStonePrompter.cpp:401
++msgid "OK"
++msgstr "OK"
 +
 +#: ../src/support.c:82
  msgid "Configure your mailer please!"
@@ -1993,13 +2082,13 @@
  msgid "Failed to launch downloader!"
 -msgstr ""
 +msgstr "Nieudane uruchomienie programu ¶ci±gaj±cego!"
-+
+ 
+-#: ../src/support.c:372
 +#: ../src/support.c:438
 +#, c-format
 +msgid "Note: .skipstonerc was moved to %s\n"
 +msgstr "Zauwa¿: .skipstonerc przeniesiono do %s\n"
- 
--#: ../src/support.c:372
++
 +#: ../src/support.c:441
 +#, c-format
 +msgid "Error moving .skipstonerc to %s: %s\n"
@@ -2030,46 +2119,46 @@
  msgstr "Nie mo¿na zapisaæ adresów"
  
 -#: ../src/support.c:907
-+#: ../src/support.c:1129
++#: ../src/support.c:1138
 +msgid "Could not write plugin config !!\n"
 +msgstr "Nie mo¿na zapisaæ konfiguracji!\n"
 +
-+#: ../src/support.c:1161
++#: ../src/support.c:1170
 +#, c-format
 +msgid "No bookmarks file to read, creating default\n"
 +msgstr "Brak zak³adek do odczytu, tworzê standardowe\n"
 +
-+#: ../src/support.c:1238
++#: ../src/support.c:1247
 +msgid "Error in bookmarks file - EOF while reading a folder\n"
 +msgstr "B³±d w pliku zak³adek - EOF w czasie czytania katalogu\n"
 +
-+#: ../src/support.c:1349
++#: ../src/support.c:1358
 +#, c-format
 +msgid "No prefixes file to read (adding defaults)\n"
 +msgstr "Brak pliku prefiksów do odczytu (dodawanie domy¶lnych)\n"
 +
-+#: ../src/support.c:1354
++#: ../src/support.c:1363
 +#, c-format
 +msgid "Couldn't open prefix file for writing!\n"
 +msgstr "Nie mo¿na otworzyæ pliku prefiksów do zapisu!\n"
 +
-+#: ../src/support.c:1409
++#: ../src/support.c:1418
 +#, c-format
 +msgid "Couldn't open prefixes file for writing!\n"
 +msgstr "Nie mo¿na otworzyæ pliku prefiksów do zapisu!\n"
 +
-+#: ../src/support.c:1439
++#: ../src/support.c:1448
  msgid "Couldn't create replacement pixmap."
  msgstr "Nie mo¿na stworzyæ zastêpczego obrazka."
  
 -#: ../src/support.c:970
-+#: ../src/support.c:1507 ../src/support.c:1553
++#: ../src/support.c:1516 ../src/support.c:1562
  #, c-format
  msgid "Couldn't find pixmap file: %s"
  msgstr "Nie znaleziono obrazka: %s"
  
 -#: ../src/support.c:979 ../src/support.c:1003
-+#: ../src/support.c:1515 ../src/support.c:1562 ../src/support.c:1585
++#: ../src/support.c:1524 ../src/support.c:1571 ../src/support.c:1594
  #, c-format
  msgid "Error loading pixmap file: %s"
  msgstr "B³±d ³adowania obrazka: %s"
