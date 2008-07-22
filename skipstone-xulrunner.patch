@@ -1,0 +1,469 @@
+--- skipstone-1.0.1/configure.in.orig	2008-04-14 08:10:19.000000000 +0200
++++ skipstone-1.0.1/configure.in	2008-07-22 21:18:54.888751816 +0200
+@@ -7,10 +7,10 @@
+ 
+ 
+ 
+-AC_ARG_ENABLE(mozilla-includes,
++AC_ARG_WITH(mozilla-includes,
+ 	[  --with-mozilla-includes=INCLUDE_PATH Path to Mozilla Includes])
+ 
+-AC_ARG_ENABLE(mozilla-libs,
++AC_ARG_WITH(mozilla-libs,
+ 	[  --with-mozilla-libs=LIB_PATH	Path to Mozilla Libraries])
+ 
+ AC_ARG_ENABLE(nls,
+@@ -110,7 +110,7 @@
+ 	fi
+ fi
+ 
+-if test -f $mozilla_libs/libgtkembedmoz.so ; then
++if test -f $mozilla_libs/libxpcom.so ; then
+ 	MOZILLA_LIB_HOME=$mozilla_libs
+ 	AC_SUBST(MOZILLA_LIB_HOME)
+ else
+@@ -180,6 +180,13 @@
+ if test -f $mozilla_libs/libxpcom_core.so; then
+ EXTRA_LIBS="$EXTRA_LIBS -lxpcom_core"
+ fi
++
++if test -f $mozilla_libs/libxpcomglue_s.a; then
++EXTRA_LIBS="$EXTRA_LIBS -lxpcomglue_s"
++fi
++if test -f $mozilla_libs/libxul.so; then
++EXTRA_LIBS="$EXTRA_LIBS -lxul"
++fi
+ AC_SUBST(EXTRA_LIBS)
+ 
+ # check for chmod and set command to make skipstone executable in src dir
+--- skipstone-1.0.1/config.mk.in.orig	2008-07-22 21:33:56.748751000 +0200
++++ skipstone-1.0.1/config.mk.in	2008-07-22 22:11:58.356747625 +0200
+@@ -50,6 +50,7 @@ MOZILLA_INCLUDES = \
+ 	-I$(MOZILLA_INCLUDE_HOME)/nspr \
+ 	-I$(MOZILLA_INCLUDE_HOME)/uconv \
+ 	-I$(MOZILLA_INCLUDE_HOME)/webbrowserpersist \
++	-I$(MOZILLA_INCLUDE_HOME)/pipnss \
+ 	-I/usr/include/nspr \
+ 	-I/usr/local/include/nspr \
+ 	-I/usr/include/nss \
+@@ -57,7 +58,7 @@
+ 	
+ MOZILLA_LIBS = \
+ 	-L$(MOZILLA_LIB_HOME) \
+-	-lgtkembedmoz -lplds4 -lplc4 -lnspr4 -lxpcom $(EXTRA_LIBS)
++	$(EXTRA_LIBS) -lplds4 -lplc4 -lnspr4 -lxpcom
+ 
+ CPPFLAGS += -I. -I../ $(GTK_INCLUDES) $(MOZILLA_INCLUDES) 
+ 
+--- skipstone-1.0.1/src/mozilla.cpp.orig	2008-07-22 21:59:04.724744273 +0200
++++ skipstone-1.0.1/src/mozilla.cpp	2008-07-22 22:19:40.472750139 +0200
+@@ -4,7 +4,6 @@
+  *  released under the GPL				*/
+ 
+ #ifndef CVS_MOZILLA 
+-#define MOZILLA_INTERNAL_API 1
+ #include "nsStringAPI.h"
+ #endif
+ 
+@@ -47,13 +46,12 @@
+ #include "nsIDocShellHistory.h"
+ #include "nsIURL.h"
+ #include "nsIDocShellTreeNode.h"
+-#include "nsXPIDLString.h"
+ #include "nsIWebBrowserPersist.h"
+ #include "nsNetUtil.h"
+ #include "nsIWebBrowserFind.h"
+ #include "nsIDOMNSDocument.h"
+ #include "nsIDOMNSEvent.h"
+-
++#include "nsWidgetsCID.h"
+ 
+ 
+ #include "nsIUnicodeEncoder.h"
+@@ -148,9 +146,8 @@ mozilla_print (GtkMozEmbed *m, PrintInfo
+ 	     	settings->SetPrintRange (nsIPrintSettings::kRangeSelection);
+ 	     	break;
+ 	}
+-        char *printer = g_strdup("PostScript/default");
+         nsAutoString mPname;
+-        mPname.AssignWithConversion(printer);
++        mPname.Assign(NS_LITERAL_STRING("PostScript/default"));
+         settings->SetPrinterName(ToNewUnicode(mPname));
+ 	settings->SetMarginTop (info->TopMargin);
+ 	settings->SetMarginBottom (info->BottomMargin);
+@@ -159,8 +156,8 @@ mozilla_print (GtkMozEmbed *m, PrintInfo
+ 	settings->SetPrintInColor(info->Color);
+      
+         nsAutoString mPrintToFile, mPrinter, mPaperName;
+-        mPrintToFile.AssignWithConversion (info->File);
+-        mPrinter.AssignWithConversion (info->Printer);
++        mPrintToFile.AssignLiteral (info->File);
++        mPrinter.AssignLiteral (info->Printer);
+ 
+ 
+ 
+@@ -171,10 +168,10 @@ mozilla_print (GtkMozEmbed *m, PrintInfo
+         settings->SetPrintToFile (info->PrintToFile);
+ 
+ 	settings->SetPrintReversed (info->Reversed);
+-        settings->SetPaperSize (nsIPrintSettings::kPaperSizeNativeData);
++        settings->SetPaperSizeType (nsIPrintSettings::kPaperSizeNativeData);
+         int paperTypeIndex = (info->Paper >= 0 ||  info->Paper < 4) ? info->Paper : 0;
+ 
+-        mPaperName.AssignWithConversion (PaperSizeNames[paperTypeIndex]);
++        mPaperName.AssignLiteral (PaperSizeNames[paperTypeIndex]);
+ 
+         settings->SetPaperName (ToNewUnicode(mPaperName));
+ 
+@@ -184,7 +181,6 @@ mozilla_print (GtkMozEmbed *m, PrintInfo
+ 
+    
+      	result = print->Print(settings, nsnull);
+-        g_free(printer);
+ 	D_RETURN_ ( NS_SUCCEEDED (result) ? TRUE : FALSE );     
+ }
+ 
+@@ -203,7 +199,7 @@ mozilla_save_image(GtkMozEmbed *b,gchar 
+      	nsCOMPtr<nsIWebBrowserPersist> persist(do_QueryInterface(wb));
+      	if (persist)  {
+ 	     	nsCOMPtr<nsILocalFile> file;
+-	        nsAutoString s; s.AssignWithConversion(FullPath);
++	        nsAutoString s; s.AssignLiteral(FullPath);
+ 	        NS_NewLocalFile(s, PR_TRUE, getter_AddRefs(file));
+ 	     	if (!file) D_RETURN;
+ 		persist->SaveURI(linkURI, nsnull, nsnull, nsnull, nsnull, file);
+@@ -330,11 +326,11 @@ mozilla_save(GtkMozEmbed *b, gchar *file
+ 				     	relative_path[i] = '\0';
+ 				     	break;
+ 				}
+-		        nsAutoString s; s.AssignWithConversion(relative_path);
++		        nsAutoString s; s.AssignLiteral(relative_path);
+ 		     	NS_NewLocalFile(s, PR_TRUE, getter_AddRefs(relative));
+ 		       
+ 		} 
+-	        nsAutoString s; s.AssignWithConversion(file_name);
++	        nsAutoString s; s.AssignLiteral(file_name);
+ 	     	NS_NewLocalFile(s,PR_TRUE,getter_AddRefs(file));
+ 
+ 	     	if (file) persist->SaveDocument(domDoc,file,relative, nsnull, 0, 0);
+@@ -526,11 +522,8 @@ mozilla_get_context_menu_type(GtkMozEmbe
+ 			   
+ 				if (!src)  D_RETURN_ (  CONTEXT_NONE );
+ 
+-			     	nsAutoString srca;
+-			     	srca.AssignWithConversion(src);
+-			     
+ 			     	nsCString srcc,imgc;
+-			     	srcc.AssignWithConversion(srca);
++			     	srcc.Assign(src);
+ 			   
+ 			     	result = baseURI->Resolve(srcc, imgc);
+ 			     	g_free(src);
+@@ -555,7 +548,7 @@ mozilla_get_context_menu_type(GtkMozEmbe
+ 			{
+ 				nsCOMPtr<nsIDOMNode> hrefNode;
+ 				nsAutoString href; 
+-			     	href.AssignWithConversion("href");
++			     	href.Assign(NS_LITERAL_STRING("href"));
+ 				attributes->GetNamedItem(href, getter_AddRefs(hrefNode));
+ 				if (hrefNode)
+ 				{
+@@ -568,18 +561,15 @@ mozilla_get_context_menu_type(GtkMozEmbe
+ 				     	if (nsElement)
+ 				       	{
+ 						result = nsElement->GetInnerHTML(linkhtml);
+-					     	if (NS_SUCCEEDED(result) && ToNewCString(linkhtml)) 
+-					       		*linktext = g_strdup(ToNewCString(linkhtml));
++					     	if (NS_SUCCEEDED(result) && ToNewUTF8String(linkhtml)) 
++					       		*linktext = g_strdup(ToNewUTF8String(linkhtml));
+ 					}
+ 
+ 					char *href =  mozilla_get_attribute (node, "href");
+ 					if (!href)   D_RETURN_ (  CONTEXT_NONE );
+ 
+-				     	nsAutoString hrefa;
+-				     	hrefa.AssignWithConversion(href);
+-				     
+ 				     	nsCString hrefc,linkc;
+-				     	hrefc.AssignWithConversion(hrefa);
++				     	hrefc.Assign(href);
+ 
+ 				     	result = baseURI->Resolve(hrefc,linkc);
+ 				     	g_free(href);
+@@ -621,7 +611,7 @@ mozilla_get_attribute (nsIDOMNode *node,
+ 
+ 	nsAutoString attr; 
+ 
+-	attr.AssignWithConversion (attribute);
++	attr.AssignLiteral (attribute);
+                                         
+ 	nsCOMPtr<nsIDOMNode> attrNode;
+ 	result = attributes->GetNamedItem (attr, getter_AddRefs (attrNode));
+@@ -632,7 +622,7 @@ mozilla_get_attribute (nsIDOMNode *node,
+ 	result = attrNode->GetNodeValue (nodeValue);
+ 	if (!NS_SUCCEEDED (result))  D_RETURN_ ( NULL );
+                                                 
+-	char *cstr = ToNewCString(nodeValue);
++	char *cstr = ToNewUTF8String(nodeValue);
+ 	char *lifeSucks = g_strdup (cstr);
+ 			
+ 	nsMemory::Free (cstr);
+@@ -692,7 +682,7 @@ gboolean mozilla_force_charset(GtkMozEmb
+      	nsCOMPtr<nsIMarkupDocumentViewer> mdv = do_QueryInterface(contentViewer,&result);
+ 	if (NS_FAILED(result) || !mdv) D_RETURN_ ( FALSE );
+        	nsAutoString mCharset;
+-        mCharset.AssignWithConversion (aCharSet);
++        mCharset.AssignLiteral (aCharSet);
+         result = mdv->SetForceCharacterSet(NS_LossyConvertUTF16toASCII(ToNewUnicode(mCharset)));
+      	D_RETURN_ ( NS_SUCCEEDED(result) ? TRUE : FALSE );
+ }
+@@ -763,7 +753,7 @@ extern "C" PRUnichar *mozilla_locale_to_
+                 D_RETURN_ ( NULL );
+         }
+ 	nsAutoString autoStr;
+-	autoStr.AssignWithConversion (locStr);       
++	autoStr.AssignLiteral (locStr);       
+ 	PRUnichar *uniStr = ToNewUnicode(autoStr);
+ 	D_RETURN_ ( uniStr );
+ }
+--- skipstone-1.0.1/src/SkipStoneBadCertListener.h.orig	2008-04-14 22:49:12.000000000 +0200
++++ skipstone-1.0.1/src/SkipStoneBadCertListener.h	2008-07-22 22:12:39.904745111 +0200
+@@ -1,10 +1,10 @@
+-#include <nsIBadCertListener.h>
++#include <nsIBadCertListener2.h>
+ 
+-class SkipStoneBadCertListener : public nsIBadCertListener
++class SkipStoneBadCertListener : public nsIBadCertListener2
+ {
+ public:
+   NS_DECL_ISUPPORTS
+-  NS_DECL_NSIBADCERTLISTENER
++  NS_DECL_NSIBADCERTLISTENER2
+ 
+   SkipStoneBadCertListener();
+    virtual ~SkipStoneBadCertListener();
+--- skipstone-1.0.1/src/SkipStoneBadCertListener.cpp.orig	2008-04-17 13:12:53.000000000 +0200
++++ skipstone-1.0.1/src/SkipStoneBadCertListener.cpp	2008-07-22 22:32:53.440745949 +0200
+@@ -11,7 +11,7 @@
+ #include <gtk/gtk.h>
+ 
+ 
+-NS_IMPL_ISUPPORTS1(SkipStoneBadCertListener, nsIBadCertListener)
++NS_IMPL_ISUPPORTS1(SkipStoneBadCertListener, nsIBadCertListener2)
+ 
+ static gint create_cert_dialog(gchar *title, gchar *text, gchar *checkbox_text, gboolean *checkbox_value)
+ {
+@@ -66,25 +66,20 @@ SkipStoneBadCertListener::~SkipStoneBadC
+ }
+ 
+ /* boolean confirmUnknownIssuer (in nsIInterfaceRequestor socketInfo, in nsIX509Cert cert, out short certAddType); */
+-NS_IMETHODIMP SkipStoneBadCertListener::ConfirmUnknownIssuer(nsIInterfaceRequestor *socketInfo, nsIX509Cert *cert, PRInt16 *certAddType, PRBool *_retval)
++NS_IMETHODIMP SkipStoneBadCertListener::NotifyCertProblem(nsIInterfaceRequestor *socketInfo, nsISSLStatus *status, const nsACString &targetSite, PRBool *_retval)
+ {
+    gboolean accept_perm;
+    gchar *secondary, *tertiary, *message;
+    gint response;
+      
+-   nsString commonName;
+-   cert->GetCommonName (commonName);
+-   
+-   NS_ConvertUTF16toUTF8 cCommonName (commonName);
+-   
+-   secondary = g_markup_printf_escaped (_("It was not possible to automatically trust “%s”. "
++   secondary = g_markup_printf_escaped (_("It was not possible to automatically trust `%s'. "
+ 					  "It is possible that someone is intercepting your "
+ 					  "communication to obtain your confidential information."),
+-					cCommonName.get());
++					ToNewCString(targetSite));
+    
+    tertiary = g_markup_printf_escaped (_("You should only connect to the site if you are certain "
+-					 "you are connected to “%s”."),
+-				       cCommonName.get());
++					 "you are connected to `%s'."),
++				       ToNewCString(targetSite));
+    
+    message = g_strdup_printf ("<span weight=\"bold\" size=\"larger\">%s</span>\n\n%s\n\n%s",
+ 			      _("Connect to untrusted site?"),
+@@ -93,163 +88,13 @@ NS_IMETHODIMP SkipStoneBadCertListener::
+    if (response != GTK_RESPONSE_ACCEPT) 
+      {
+ 	*_retval = PR_FALSE;
+-	*certAddType = UNINIT_ADD_FLAG;
+      }
+     else
+      {
+-	if (accept_perm) 
+-	  {
+-	     *_retval = PR_TRUE;
+-	     *certAddType = ADD_TRUSTED_PERMANENTLY;
+-	     
+-	  }
+-	
+-	else
+-	  {
+-	     
+ 	     *_retval = PR_TRUE;
+-	     *certAddType = ADD_TRUSTED_FOR_SESSION;
+-	  }
+-	
+      }
+    
+ 	
+    return NS_OK;
+ }
+ 
+-/* boolean confirmMismatchDomain (in nsIInterfaceRequestor socketInfo, in AUTF8String targetURL, in nsIX509Cert cert); */
+-NS_IMETHODIMP SkipStoneBadCertListener::ConfirmMismatchDomain(nsIInterfaceRequestor *socketInfo, const nsACString & targetURL, nsIX509Cert *cert, PRBool *_retval)
+-{
+-   gint response;
+-   gchar *message, *first, *second;
+-   nsString commonName;
+-   cert->GetCommonName(commonName);
+-   NS_ConvertUTF16toUTF8 cCommonName (commonName);
+-   nsCString cTargetUrl (targetURL);
+-   first = g_markup_printf_escaped (_("The site “%s” returned security information for "
+-				      "“%s”. It is possible that someone is intercepting "
+-				      "your communication to obtain your confidential "
+-				      "information."),
+-				    cTargetUrl.get(), cCommonName.get());
+-   
+-   second = g_markup_printf_escaped (_("You should only accept the security information if you "
+-				       "trust “%s” and “%s”."),
+-				     cTargetUrl.get(), cCommonName.get());
+-   
+-   message = g_strdup_printf ("<span weight=\"bold\" size=\"larger\">%s</span>\n\n%s\n\n%s",
+-			  _("Accept incorrect security information?"),
+-			  first, second);
+-   
+-   response = create_cert_dialog(_("Domain Mismatch"), message, NULL, NULL);
+-   g_free(second);
+-   g_free(first);
+-   g_free(message);
+-   *_retval = (response == GTK_RESPONSE_ACCEPT);
+-   return NS_OK;
+-
+-}
+-
+-/* boolean confirmCertExpired (in nsIInterfaceRequestor socketInfo, in nsIX509Cert cert); */
+-NS_IMETHODIMP SkipStoneBadCertListener::ConfirmCertExpired(nsIInterfaceRequestor *socketInfo, nsIX509Cert *cert, PRBool *_retval)
+-{
+-   nsresult rv;
+-   PRTime now = PR_Now();
+-   PRTime notAfter, notBefore, timeToUse;
+-   PRInt64 normalizedTime;
+-   time_t t;
+-   struct tm tm;
+-   gchar formattedDate[128];
+-   gchar *fdate;
+-   const gchar *primary, *text;
+-   gchar *secondary, *message;
+-   
+-   *_retval = PR_FALSE;
+-   
+-   nsCOMPtr<nsIX509CertValidity> validity;
+-   rv = cert->GetValidity (getter_AddRefs(validity));
+-   if (NS_FAILED(rv)) return rv;
+-   rv = validity->GetNotAfter (&notAfter);
+-   if (NS_FAILED(rv)) return rv;
+-   
+-   rv = validity->GetNotBefore (&notBefore);
+-   if (NS_FAILED(rv)) return rv;
+-   
+-   if (LL_CMP(now, >, notAfter))
+-     {
+-	
+-	primary = _("Accept expired security information?");
+-	/* Translators: first %s is a hostname, second %s is a time/date */
+-	text    = _("The security information for “%s” "
+-		    "expired on %s.");
+-	timeToUse = notAfter;
+-     }
+-   
+-   else
+-     {
+-	
+-	primary = _("Accept not yet valid security information?");
+-	/* Translators: first %s is a hostname, second %s is a time/date */
+-	text    = _("The security information for “%s” isn't valid until %s.");
+-	timeToUse = notBefore;
+-     }
+-   
+-   nsString commonName;
+-   cert->GetCommonName (commonName);
+-   
+-   NS_ConvertUTF16toUTF8 cCommonName (commonName);
+-   
+-   LL_DIV (normalizedTime, timeToUse, PR_USEC_PER_SEC);
+-   LL_L2UI (t, normalizedTime);
+-   /* To translators: this a time format that is used while displaying the
+-    *          * expiry or start date of an SSL certificate, for the format see 
+-    *          * strftime(3) */
+-   strftime (formattedDate, sizeof(formattedDate), _("%a %d %b %Y"),
+-	     localtime_r (&t, &tm));
+-   /* FIXME! this isn't actually correct, LC_CTIME codeset could be different than locale codeset! */
+-   fdate = g_locale_to_utf8 (formattedDate, -1, NULL, NULL, NULL);
+-   
+-   secondary = g_markup_printf_escaped (text, cCommonName.get(), fdate);
+-   
+-   message = g_strdup_printf ("<span weight=\"bold\" size=\"larger\">%s</span>\n\n%s\n\n%s",
+-			      primary, secondary,
+-			      _("You should ensure that your computer's time is correct."));
+-   
+-   gint res = create_cert_dialog(_("Expired Security Information"), message, NULL, NULL);
+-   
+-   g_free (fdate);
+-   g_free (message);
+-   g_free (secondary);
+-   
+-   *_retval = (res == GTK_RESPONSE_ACCEPT);
+-   
+-   return NS_OK;
+-   
+-}
+-
+-/* void notifyCrlNextupdate (in nsIInterfaceRequestor socketInfo, in AUTF8String targetURL, in nsIX509Cert cert); */
+-NS_IMETHODIMP SkipStoneBadCertListener::NotifyCrlNextupdate(nsIInterfaceRequestor *socketInfo, const nsACString & targetURL, nsIX509Cert *cert)
+-{
+-   nsCString cTargetUrl (targetURL);
+-   
+-   nsString commonName;
+-   cert->GetCommonName (commonName);
+-   
+-   GtkWidget *dialog = gtk_message_dialog_new (NULL,
+-					       GTK_DIALOG_DESTROY_WITH_PARENT,
+-					       GTK_MESSAGE_ERROR,
+-					       GTK_BUTTONS_OK,
+-					       _("Cannot establish connection to “%s”"),
+-					       cTargetUrl.get ());
+-   
+-   gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog),
+-					     _("The certificate revocation list (CRL) from “%s” "
+-					       "needs to be updated.\n\n"
+-					       "Please ask your system administrator for assistance."),
+-					     NS_ConvertUTF16toUTF8 (commonName).get ());
+-      
+-   g_signal_connect (dialog, "response",(GCallback) gtk_widget_destroy, NULL);
+-   gtk_widget_show_all (dialog);
+-   return NS_OK;
+-   
+-}
+-
+--- skipstone-1.0.1/src/SkipStoneContentHandler.cpp.orig	2008-04-14 20:59:46.000000000 +0200
++++ skipstone-1.0.1/src/SkipStoneContentHandler.cpp	2008-07-22 22:22:10.844749301 +0200
+@@ -43,7 +43,7 @@ NS_GENERIC_FACTORY_CONSTRUCTOR(SkipStone
+        {
+ 	        "Mozilla Bad Certificate Handler",
+ 	        SK_IBADCERTLISTENER_IID,
+-     	        NS_BADCERTLISTENER_CONTRACTID,
++     	        "@mozilla.org/nsBadCertListener2;1" /*NS_BADCERTLISTENER2_CONTRACTID ??? */,
+ 	        SkipStoneBadCertListenerConstructor
+ 	}
+ };
+@@ -165,6 +165,7 @@ NS_IMETHODIMP GContentHandler::PromptFor
+ 				    nsISupports *aWindowContext,
+ 				    const PRUnichar *aDefaultFile,
+ 				    const PRUnichar *aSuggestedFileExtension,
++				    PRBool aForcePrompt,
+ 				    nsILocalFile **_retval)
+ {
+ 
