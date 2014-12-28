@@ -18,7 +18,7 @@ Patch4:		%{name}-po-fixes.patch
 Patch5:		%{name}-xulrunner.patch
 URL:		http://www.muhri.net/skipstone/
 BuildRequires:	autoconf
-BuildRequires:	gettext-devel >= 0.11
+BuildRequires:	gettext-tools >= 0.11
 BuildRequires:	gtk+2-devel >= 2:2.2.0
 BuildRequires:	libstdc++-devel
 BuildRequires:	xulrunner-devel >= 1.9
